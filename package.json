@@ -1,9 +1,9 @@
 {
-  "name": "",
-  "version": "",
-  "description": "",
-  "author": "",
-  "license": "",
+  "name": "fec-photo-gallery",
+  "version": "0.0",
+  "description": "FEC module -- photo gallery microservice",
+  "author": "Hugo Xiong",
+  "license": "MIT",
   "engines": {
     "node": ">=6.13.0"
   },

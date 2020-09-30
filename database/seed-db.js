@@ -21,7 +21,7 @@ const seedDocument = async ({product_id, style_id}) => {
   await photo.save();
 }
 
-const seedDatabase = async () => {
+const seedDatabase = async (ids) => {
   try {
     await resetDatabase();
 
@@ -29,10 +29,23 @@ const seedDatabase = async () => {
       await seedDocument(item);
     }
 
-    await db.close();
   } catch (err) {
     console.log(err);
   }
 }
 
-seedDatabase();
+const init = async () => {
+  try {
+    await seedDatabase(ids);
+    await db.close();
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+
+init();
+
+module.exports = {
+  seedDocument, seedDatabase
+}

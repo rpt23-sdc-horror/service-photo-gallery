@@ -1,13 +1,14 @@
 require("./connect.js");
 
-const Photo = require("PhotoModel.js");
+const Photo = require("./PhotoModel.js");
 
-const getPhotosByStyleId = async (product_id, style_id) => {
-  const results = await Photo.find({product_id, style_id});
-  return results;
+const getPhotosById = async (product_id, style_id) => {
+  console.log(style_id);
+  const result = await Photo.findOne({product_id, style_id});
+  return result;
 }
 
 module.exports = {
-  getPhotosByStyleId
+  getPhotosById
 }
 

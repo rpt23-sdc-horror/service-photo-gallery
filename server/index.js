@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
 
-app.get("/photos/:productid/:styleid", (req, res) => {
-  console.log(req.params);
-  const photos = [];
+const db = require("../database/index.js");
+
+app.get("/photos/:productid/:styleid", async (req, res) => {
+  const photos = await db.getPhotosById(req.params.productid, req.params.styleid);
   res.send(photos);
 })
 

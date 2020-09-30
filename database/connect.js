@@ -19,3 +19,5 @@ db.once('open', () => {
 // db.once('close', () => {
 //   // console.log("Mongoose: connection to Photos DB closed!")
 // });
+
+module.exports = db;

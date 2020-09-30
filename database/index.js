@@ -29,8 +29,7 @@ const addDocument = async ({product_id, style_id}) => {
 
 const resetDatabase = async (database) => {
   await database.dropDatabase();
-  console.log(database);
-  console.log(" dropped!");
+  console.log(`Dropped ${database.name}!`);
 }
 
 const seedDatabase = async (database, data) => {
@@ -41,8 +40,8 @@ const seedDatabase = async (database, data) => {
       await addDocument(item);
     }
 
-    await db.close();
-    console.log("Connection to Photos DB closed!");
+    await database.close();
+    console.log(`Connection to ${database.name} DB closed!`);
   }
   catch (err) {
     console.log(err);

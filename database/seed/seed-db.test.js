@@ -12,9 +12,9 @@ describe("Seeding Photo DB:", () => {
 
   const ids = [];
 
-  test("database is dropped before seed script runs", async () => {
+  test("should drop database before seed script runs", async () => {
     try {
-      // await seed.seedDatabase();
+      // await seed.seedDatabase(ids);
       const photos = await Photo.find().lean();
       console.log(photos);
       expect(photos.length).toBe(0);

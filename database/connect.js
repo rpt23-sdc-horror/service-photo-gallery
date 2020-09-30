@@ -14,7 +14,8 @@ db.once('open', () => {
 });
 
 db.once('close', () => {
-  console.log("Mongoose: connection to Photos DB closed!")
+  // this doesn't appear to work well with jest?
+  // console.log("Mongoose: connection to Photos DB closed!")
 });
 
 module.exports = db;

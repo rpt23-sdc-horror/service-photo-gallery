@@ -11,7 +11,7 @@ afterAll(() => {
 
 describe("Photo API", () => {
   test("should get correct photo for a product + style id", async () => {
-    const response = await request(app).get(`/photos/${product_id}/${style_id}`)
+    const response = await request(app).get(`/photos/${product_id}/${style_id}`);
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
       product_id: "XX1111",
@@ -20,7 +20,7 @@ describe("Photo API", () => {
   })
 
   test("should get 400 error for non-existent id", async () => {
-    const response = await request(app).get(`/photos/${product_id}/doesntexist`)
+    const response = await request(app).get(`/photos/${product_id}/doesntexist`);
     expect(response.status).toBe(400);
     expect(response.body).toBeNull;
   })

@@ -1,4 +1,3 @@
-const db = require("../connect.js");
 const seed = require("./seed-db.js");
 const Photo = require("../PhotoModel.js");
 
@@ -6,22 +5,21 @@ const Photo = require("../PhotoModel.js");
 // If you choose to delve into dangerous waters and test Mongoose apps with Jest, here's what you need to know:
 // >>> HUGO: so, I'm not sure how to use Jest here to use it with Mongoose
 
-// describe("Seeding Photo DB:", () => {
-//   // beforeAll() {
-//   //   // ???
-//   // }
+describe("Seeding Photo DB:", () => {
+  // beforeAll() {
+  //   // ???
+  // }
 
-//   const ids = [];
+  const ids = [];
 
-//   test("database is dropped before seed script runs", async () => {
-//     try {
-//       await seed.seedDatabase(ids);
-//       const photos = await Photo.find();
-//       console.log(photos);
-//       expect(photos).length.toBe(0);
-//       db.close();
-//     } catch (err) {
-//       console.log(err);
-//     }
-//   })
-// })
+  test("database is dropped before seed script runs", async () => {
+    try {
+      // await seed.seedDatabase();
+      const photos = await Photo.find().lean();
+      console.log(photos);
+      expect(photos.length).toBe(0);
+    } catch (err) {
+      console.log(err);
+    }
+  })
+})

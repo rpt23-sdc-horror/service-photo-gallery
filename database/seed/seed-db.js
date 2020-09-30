@@ -30,23 +30,17 @@ const seedDatabase = async (ids) => {
       await seedDocument(item);
     }
 
-  } catch (err) {
-    console.log(err);
-  }
-}
-
-const init = async () => {
-  try {
-    await seedDatabase(ids);
     await db.close();
+    return 'hi';
   }
   catch (err) {
     console.log(err);
   }
 }
 
-init();
+// Run this command to initialize seed script:
+seedDatabase(ids);
 
 module.exports = {
-  seedDocument, seedDatabase
+  resetDatabase, seedDocument, seedDatabase
 }

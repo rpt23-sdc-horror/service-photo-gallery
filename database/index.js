@@ -1,4 +1,4 @@
-require("./start.js");
+require("./connect.js");
 
 const Photo = require("PhotoModel.js");
 

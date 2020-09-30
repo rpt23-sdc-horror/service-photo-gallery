@@ -1,4 +1,4 @@
-const db = require("../start.js");
+const db = require("../connect.js");
 const seed = require("./seed-db.js");
 const Photo = require("../PhotoModel.js");
 

@@ -10,6 +10,7 @@
   "scripts": {
     "server": "nodemon server/index.js",
     "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage",
     "seed-db": "node database/seed/seed-db.js"
   },
   "dependencies": {

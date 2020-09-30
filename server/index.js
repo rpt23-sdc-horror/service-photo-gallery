@@ -1,4 +1,8 @@
+// express + routes
 const app = require("./app");
+
+// open connection to Photos DB
+require("../database/connect.js");
 
 const port = 3000;
 

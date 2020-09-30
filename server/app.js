@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
 
-const db = require("../database/index.js");
+const photoDB = require("../database/index.js");
 
 app.get("/photos/:productid/:styleid", async (req, res) => {
   try {
-    const photos = await db.getPhotosById(req.params.productid, req.params.styleid);
+    const photos = await photoDB.getPhotosById(req.params.productid, req.params.styleid);
     res.send(photos);
   } catch (err) {
     console.log(err);

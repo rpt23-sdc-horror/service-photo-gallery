@@ -1,5 +1,5 @@
 const db = require("../connect.js");
-const photoDB = require("../index.js");
+const seed = require("./seed-functions.js");
 const data = require("./seed-data.js");
 
-photoDB.seedDatabase(db, data);
+seed.seedDatabase(db, data);

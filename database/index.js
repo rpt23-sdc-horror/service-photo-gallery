@@ -1,6 +1,3 @@
-// establish MongoDB connection to "Photos" database
-
-
 // The "database" is the Mongoose connection instance, it must be passed into the function
 
 const Photo = require("./PhotoModel.js");
@@ -27,28 +24,7 @@ const addDocument = async ({product_id, style_id}) => {
   console.log(`Document "${product_id}-${style_id}" saved!`)
 }
 
-const resetDatabase = async (database) => {
-  await database.dropDatabase();
-  console.log(`Dropped ${database.name}!`);
-}
-
-const seedDatabase = async (database, data) => {
-  try {
-    await resetDatabase(database);
-
-    for (item of data) {
-      await addDocument(item);
-    }
-
-    await database.close();
-    console.log(`Connection to ${database.name} DB closed!`);
-  }
-  catch (err) {
-    console.log(err);
-  }
-}
-
 module.exports = {
-  getPhotosById, addDocument, resetDatabase, seedDatabase
+  getPhotosById, addDocument
 }
 

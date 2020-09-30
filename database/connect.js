@@ -21,3 +21,7 @@ db.once('open', () => {
 // });
 
 module.exports = db;
+
+// @martinsung00 THIS IS A RANDOM SUGGESTION I HAVE!!! RESPONSE PLEASE!!!
+// @hugoxiong5 YO! THIS IS YOU, FROM THE PAST!!! I HAVE A SUGGESTION
+// # This is supposed to be an issue suggestion.

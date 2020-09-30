@@ -9,8 +9,10 @@ app.get("/photos/:productid/:styleid", async (req, res) => {
     res.send(photos);
   } catch (err) {
     console.log(err);
-    res.status(400).send();
+    res.status(400).send({err: err.message});
   }
 })
+
+// add another endpoint for getting all photos by product ID
 
 module.exports = app;

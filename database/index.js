@@ -4,7 +4,7 @@ const Photo = require("./PhotoModel.js");
 
 const getPhotosById = async (product_id, style_id) => {
   const result = await Photo.findOne({product_id, style_id});
-  if (!result) {
+  if (result === null) {
     throw new Error(`no document found for product_id ${product_id} and style_id ${style_id}`);
   }
   return result;

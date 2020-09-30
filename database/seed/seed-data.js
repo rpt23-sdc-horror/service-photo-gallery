@@ -26,4 +26,11 @@ const data = [
   },
 ]
 
+// how to map images to URL?
+// script to go to http://lorempixel.com/400/200/sports/
+// download image
+// upload to S3
+
+// use bit.ly to create unique urls
+
 module.exports = data;

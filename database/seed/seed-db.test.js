@@ -79,3 +79,7 @@ describe("Photo DB Seed Script:", () => {
     }
   })
 })
+
+// add failing cases: i.e. can't connect to database, data is invalid, is unexpected
+// ex. if the database can't connect, is seed script properly ended
+// can check Mongoose DB error codes

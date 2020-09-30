@@ -22,6 +22,6 @@ describe("Photo API", () => {
   test("should get 400 error for non-existent id", async () => {
     const response = await request(app).get(`/photos/${product_id}/doesntexist`);
     expect(response.status).toBe(400);
-    expect(response.body).toBeNull;
+    expect(response.body).toEqual({err: `no document found for product_id ${product_id} and style_id doesntexist`});
   })
 })

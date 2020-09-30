@@ -21,5 +21,5 @@ const seedDatabase = async (database, data) => {
 }
 
 module.exports = {
-  resetDatabase, seedDatabase
+  seedDatabase
 }

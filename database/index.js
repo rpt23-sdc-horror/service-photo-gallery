@@ -1,20 +1,13 @@
-const mongoose = require('mongoose');
+require("./start.js");
 
-mongoose.connect('mongodb://localhost:27017/photos', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+const Photo = require("PhotoModel.js");
 
-const db = mongoose.connection;
+const getPhotosByStyleId = async (product_id, style_id) => {
+  const results = await Photo.find({product_id, style_id});
+  return results;
+}
 
-db.on('error', console.error.bind(console, 'connection error:'));
+module.exports = {
+  getPhotosByStyleId
+}
 
-db.once('open', () => {
-  console.log("Mongoose: connected to Photos DB!")
-});
-
-db.once('close', () => {
-  console.log("Mongoose: connection to Photos DB closed!")
-});
-
-module.exports = db;

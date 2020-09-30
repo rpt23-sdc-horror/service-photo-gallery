@@ -1,5 +1,5 @@
 //establish Mongoose connection to "photos" database
-const db = require("../index.js");
+const db = require("../start.js");
 const Photo = require("../PhotoModel.js");
 const ids = require("./seed-ids.js");
 

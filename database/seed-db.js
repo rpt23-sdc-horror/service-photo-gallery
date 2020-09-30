@@ -19,6 +19,7 @@ const seedDocument = async ({product_id, style_id}) => {
   });
 
   await photo.save();
+  console.log(`Document "${product_id}-${style_id}" saved!`)
 }
 
 const seedDatabase = async (ids) => {

@@ -8,10 +8,12 @@
     "node": ">=6.13.0"
   },
   "scripts": {
+    "server": "nodemon server/index.js",
     "test": "jest",
     "seed-db": "node database/seed-db.js"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "mongoose": "^5.10.7"
   },
   "devDependencies": {

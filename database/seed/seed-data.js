@@ -1,5 +1,5 @@
 // the list of product and style ids we are using for our mock data. Shared between all FEC modules
-const ids = [
+const data = [
   {
     product_id: "XX1111",
     style_id: "001"
@@ -26,4 +26,4 @@ const ids = [
   },
 ]
 
-module.exports = ids;
+module.exports = data;

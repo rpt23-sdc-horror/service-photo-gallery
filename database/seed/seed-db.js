@@ -1,7 +1,7 @@
 //establish Mongoose connection to "photos" database
 const db = require("../connect.js");
 const Photo = require("../PhotoModel.js");
-const ids = require("./seed-ids.js");
+const data = require("./seed-data.js");
 
 const resetDatabase = async () => {
   await db.dropDatabase();
@@ -22,11 +22,11 @@ const seedDocument = async ({product_id, style_id}) => {
   console.log(`Document "${product_id}-${style_id}" saved!`)
 }
 
-const seedDatabase = async (ids) => {
+const seedDatabase = async (data) => {
   try {
     await resetDatabase();
 
-    for (item of ids) {
+    for (item of data) {
       await seedDocument(item);
     }
 
@@ -38,7 +38,7 @@ const seedDatabase = async (ids) => {
 }
 
 // Run this command to initialize seed script:
-// seedDatabase(ids);
+seedDatabase(data);
 
 module.exports = {
   resetDatabase, seedDocument, seedDatabase

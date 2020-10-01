@@ -73,7 +73,7 @@ describe("Photo DB Seed Script:", () => {
       await seed.seedDatabase(db, testData);
       const photos = await Photo.find().lean();
       expect(photos.length).toBe(6);
-      expects(photos[3].product_id).toBe("AA2222");
+      expect(photos[3].product_id).toBe("AA2222");
     } catch (err) {
       console.log(err);
     }

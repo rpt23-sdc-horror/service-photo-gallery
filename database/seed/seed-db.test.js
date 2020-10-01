@@ -34,6 +34,24 @@ const testData = [
   },
 ]
 
+
+describe("MongoDB Connection Error", () => {
+  test("should throw error if not connected to MongoDB", async () => {
+    try {
+      await mongoose.connect(`modb://localhost:27017/${databaseName}`, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useFindAndModify: false,
+        useCreateIndex: true,
+      });
+      db = mongoose.connection;
+      await seed.seedDatabase(db, testData);
+    } catch (err) {
+      expect(err.message).toBe("Invalid connection string");
+    }
+  })
+})
+
 describe("Photo DB Seed Script:", () => {
   // creates database connection (each test file should have different database)
   beforeAll(async () => {

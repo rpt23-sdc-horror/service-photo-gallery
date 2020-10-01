@@ -1,37 +1,52 @@
 const AWS = require('aws-sdk');
+const fs = require('fs');
+const path = require('path');
 
 require('dotenv').config();
 
 // Set the Region
-// AWS.config.update({region: 'us-west-2'});
+// AWS.config.region = 'us-west-1';
 
 const bucketName = 'ultimate-nike';
 
-// const s3 = new AWS.S3({
-//   params: { Bucket: bucketName },
-// });
+const readPhoto = async () => {
 
-  // Use S3 ManagedUpload class as it supports multipart uploads
-  var upload = new AWS.S3.ManagedUpload({
-    params: {
-      Bucket: bucketName,
-      Key: 'yo wtf',
-      Body: file,
-      ACL: "public-read"
-    }
-  });
+}
 
-  var promise = upload.promise();
+console.log(path.join(__dirname, 'test-photo.png'))
 
-  promise.then(
-    function(data) {
-      alert("Successfully uploaded photo.");
-      viewAlbum(albumName);
-    },
-    function(err) {
-      return alert("There was an error uploading your photo: ", err.message);
-    }
-  );
+const fileStream = fs.createReadStream(path.join(__dirname, 'test-photo.png'));
+fileStream.on('error', function(err) {
+  console.log('File Error', err);
+});
+// console.log(fileStream);
+
+// Use S3 ManagedUpload class as it supports multipart uploads
+const upload = new AWS.S3.ManagedUpload({
+  params: {
+    Bucket: bucketName,
+    Key: 'photos/whatever.jpg',
+    Body: fileStream,
+    ContentType: 'image/png',
+    ACL: 'public-read',
+  }
+});
+
+const uploadPhoto = async () => {
+  try {
+    const promise = upload.promise();
+    const data = await promise;
+    console.log('Successfully uploaded photo.', data);
+  } catch (err) {
+    console.log(err);
+  }
+
+}
+
+uploadPhoto();
+
+
+
 
 // call S3 to retrieve upload file to specified bucket
 // var uploadParams = {Bucket: bucketName, Key: '', Body: ''};

@@ -1,6 +1,6 @@
-const db = require("../connect.js");
-const seed = require("./seed-functions.js");
-const data = require("./seed-data.js");
+const db = require('../connect.js');
+const seed = require('./seed-functions.js');
+const data = require('./seed-data.js');
 
 (async () => {
   try {
@@ -8,9 +8,10 @@ const data = require("./seed-data.js");
     await db.close();
     console.log(`Connection to ${db.name} DB closed!`);
   } catch (err) {
-    // console.log(err);
-    console.log(err.code);
+    console.log(err);
+    await db.close();
+    console.log(`Connection to ${db.name} DB closed!`);
   }
-})()
+})();
 
 // should close database if error

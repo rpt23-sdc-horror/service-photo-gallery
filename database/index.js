@@ -1,30 +1,29 @@
-// The "database" is the Mongoose connection instance, it must be passed into the function
+// The 'database' is the Mongoose connection instance, it must be passed into the function
 
-const Photo = require("./PhotoModel.js");
+const Photo = require('./PhotoModel.js');
 
-const getPhotosById = async (product_id, style_id) => {
-  const result = await Photo.findOne({product_id, style_id});
+const getPhotosById = async (productId, styleId) => {
+  const result = await Photo.findOne({ product_id: productId, style_id: styleId });
   if (result === null) {
-    throw new Error(`no document found for product_id ${product_id} and style_id ${style_id}`);
+    throw new Error(`no document found for productId ${productId} and styleId ${styleId}`);
   }
   return result;
-}
+};
 
-const addDocument = async ({product_id, style_id}) => {
+const addDocument = async ({ productId, styleId }) => {
   const photo = new Photo({
-    product_id,
-    style_id,
+    product_id: productId,
+    style_id: styleId,
     main_photo: {
-      thumbnail_url: `placeholder.com/photos/main_thumbnail/${product_id}-${style_id}.jpg`,
-      regular_url: `placeholder.com/photos/main_regular/${product_id}-${style_id}.jpg`,
+      thumbnail_url: `placeholder.com/photos/main_thumbnail/${productId}-${styleId}.jpg`,
+      regular_url: `placeholder.com/photos/main_regular/${productId}-${styleId}.jpg`,
     },
   });
 
   await photo.save();
-  console.log(`Document "${product_id}-${style_id}" saved!`)
-}
+  console.log(`Document '${productId}-${styleId}' saved!`);
+};
 
 module.exports = {
-  getPhotosById, addDocument
-}
-
+  getPhotosById, addDocument,
+};

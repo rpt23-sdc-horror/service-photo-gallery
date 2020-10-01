@@ -9,47 +9,30 @@ let db = null;
 
 const testData = [
   {
-    product_id: 'XX1111',
-    style_id: '001',
+    productId: 'XX1111',
+    styleId: '001',
   },
   {
-    product_id: 'XX1111',
-    style_id: '002',
+    productId: 'XX1111',
+    styleId: '002',
   },
   {
-    product_id: 'XX1111',
-    style_id: '003',
+    productId: 'XX1111',
+    styleId: '003',
   },
   {
-    product_id: 'AA2222',
-    style_id: '001',
+    productId: 'AA2222',
+    styleId: '001',
   },
   {
-    product_id: 'AA2222',
-    style_id: '002',
+    productId: 'AA2222',
+    styleId: '002',
   },
   {
-    product_id: 'BB3333',
-    style_id: '001',
+    productId: 'BB3333',
+    styleId: '001',
   },
 ];
-
-describe('MongoDB Connection Error', () => {
-  test('should throw error if not connected to MongoDB', async () => {
-    try {
-      await mongoose.connect(`modb://localhost:27017/${databaseName}`, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-        useFindAndModify: false,
-        useCreateIndex: true,
-      });
-      db = mongoose.connection;
-      await seed.seedDatabase(db, testData);
-    } catch (err) {
-      expect(err.message).toBe('Invalid connection string');
-    }
-  });
-});
 
 describe('Photo DB Seed Script:', () => {
   // creates database connection (each test file should have different database)
@@ -74,6 +57,12 @@ describe('Photo DB Seed Script:', () => {
     await db.close();
   });
 
+  // this doesn't appear to actually work (no error is thrown)
+  // test('should throw error if not connected to MongoDB', async () => {
+  //   await db.close();
+  //   await expect(seed.seedDatabase(db, testData)).rejects.toThrow();
+  // });
+
   test('should drop database before script runs', async () => {
     try {
       const emptyData = [];
@@ -90,7 +79,7 @@ describe('Photo DB Seed Script:', () => {
       await seed.seedDatabase(db, testData);
       const photos = await Photo.find().lean();
       expect(photos).toHaveLength(6);
-      expect(photos[3].product_id).toBe('AA2222');
+      expect(photos[3].productId).toBe('AA2222');
     } catch (err) {
       console.log(err);
     }

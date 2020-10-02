@@ -1,6 +1,7 @@
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const path = require('path');
+const fetch = require('node-fetch');
 
 require('dotenv').config();
 
@@ -10,30 +11,40 @@ require('dotenv').config();
 const bucketName = 'ultimate-nike';
 
 const readPhoto = async () => {
-
+  try {
+    const response = await fetch('http://lorempixel.com/400/200/sports/');
+    console.log(response.body);
+    return response.body;
+  } catch (err) {
+    console.log(err);
+  }
 }
+
+// readPhoto();
 
 console.log(path.join(__dirname, 'test-photo.png'))
 
-const fileStream = fs.createReadStream(path.join(__dirname, 'test-photo.png'));
-fileStream.on('error', function(err) {
-  console.log('File Error', err);
-});
+// const fileStream = fs.createReadStream(path.join(__dirname, 'test-photo.png'));
+// fileStream.on('error', function(err) {
+//   console.log('File Error', err);
+// });
 // console.log(fileStream);
 
 // Use S3 ManagedUpload class as it supports multipart uploads
-const upload = new AWS.S3.ManagedUpload({
-  params: {
-    Bucket: bucketName,
-    Key: 'photos/whatever.jpg',
-    Body: fileStream,
-    ContentType: 'image/png',
-    ACL: 'public-read',
-  }
-});
+
 
 const uploadPhoto = async () => {
   try {
+    const stream = await readPhoto();
+    const upload = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: bucketName,
+        Key: 'photos/whatever.jpg',
+        Body: stream,
+        ContentType: 'image/png',
+        ACL: 'public-read',
+      }
+    });
     const promise = upload.promise();
     const data = await promise;
     console.log('Successfully uploaded photo.', data);

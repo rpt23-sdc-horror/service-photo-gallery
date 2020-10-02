@@ -8,8 +8,17 @@ class App extends React.Component {
     };
   }
 
-  async getPhotos(styleId) {
-    const response = await fetch(`/photos/${styleId}`);
+  componentDidMount() {
+    this.getPhotos(1, "001");
+  }
+
+  getPhotos = async (productId, styleId) => {
+    const response = await fetch(`/photos/${productId}/${styleId}`);
+    const data = await response.json();
+    console.log(data);
+    this.setState({
+      photos: data
+    })
   }
 
   render() {

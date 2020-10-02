@@ -9,8 +9,20 @@ const databaseName = 'fec-seed-photos-test';
 let db = null;
 
 describe('Photo DB Seed Connection', () => {
-  test('should throw error if not connected to MongoDB', async () => {
-    await expect(seed.seedDatabase(db, seedData)).rejects.toThrow();
+  test('should throw error if db instance is null', async () => {
+    await expect(seed.seedDatabase(db, seedData)).rejects.toThrow('Cannot read property \'dropDatabase\' of null');
+  });
+
+  test('should throw error if connection closed', async () => {
+    await mongoose.connect(`mongodb://localhost:27017/${databaseName}`, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+      useCreateIndex: true,
+    });
+    db = mongoose.connection;
+    await db.close();
+    await expect(seed.seedDatabase(db, seedData)).rejects.toThrow('MongoError: topology was destroyed');
   });
 });
 

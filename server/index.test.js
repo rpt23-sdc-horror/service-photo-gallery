@@ -43,7 +43,6 @@ describe('API endpoint: get all photos for a product', () => {
     //     regular_url: 'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg',
     //   },
     });
-  });
 
   test('should get 400 error for non-existent product id', async () => {
     const response = await request(app).get(`/photos/245`);

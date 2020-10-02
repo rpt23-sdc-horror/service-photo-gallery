@@ -13,25 +13,25 @@ const bucketName = 'ultimate-nike';
 const readPhoto = async () => {
   try {
     const response = await fetch('http://lorempixel.com/400/200/sports/');
-    console.log(response.body);
     return response.body;
   } catch (err) {
     console.log(err);
+    return null;
   }
-}
+};
 
-// readPhoto();
+// urls array
+const urls = [];
 
-console.log(path.join(__dirname, 'test-photo.png'))
-
-// const fileStream = fs.createReadStream(path.join(__dirname, 'test-photo.png'));
-// fileStream.on('error', function(err) {
-//   console.log('File Error', err);
-// });
-// console.log(fileStream);
-
-// Use S3 ManagedUpload class as it supports multipart uploads
-
+const writeUrlsToFile = async (data) => {
+  try {
+    const filePath = path.join(__dirname, 'seed-urls.json');
+    await fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    console.log('wrote urls to file');
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 const uploadPhoto = async () => {
   try {
@@ -47,7 +47,9 @@ const uploadPhoto = async () => {
     });
     const promise = upload.promise();
     const data = await promise;
-    console.log('Successfully uploaded photo.', data);
+    console.log('Successfully uploaded photo:', data);
+    urls.push(data.Location);
+    writeUrlsToFile(urls);
   } catch (err) {
     console.log(err);
   }
@@ -56,28 +58,3 @@ const uploadPhoto = async () => {
 
 uploadPhoto();
 
-
-
-
-// call S3 to retrieve upload file to specified bucket
-// var uploadParams = {Bucket: bucketName, Key: '', Body: ''};
-// var file = process.argv[3];
-
-// // Configure the file stream and obtain the upload parameters
-// var fs = require('fs');
-// var fileStream = fs.createReadStream(file);
-// fileStream.on('error', function(err) {
-//   console.log('File Error', err);
-// });
-// uploadParams.Body = fileStream;
-// var path = require('path');
-// uploadParams.Key = path.basename(file);
-
-// call S3 to retrieve upload file to specified bucket
-// s3.upload (uploadParams, function (err, data) {
-//   if (err) {
-//     console.log("Error", err);
-//   } if (data) {
-//     console.log("Upload Success", data.Location);
-//   }
-// });

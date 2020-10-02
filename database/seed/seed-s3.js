@@ -6,7 +6,7 @@ const fetch = require('node-fetch');
 require('dotenv').config();
 
 // Set the Region
-// AWS.config.region = 'us-west-1';
+AWS.config.region = 'us-west-1';
 
 const bucketName = 'ultimate-nike';
 
@@ -33,13 +33,13 @@ const writeUrlsToFile = async (data) => {
   }
 };
 
-const uploadPhoto = async () => {
+const uploadPhoto = async (key) => {
   try {
     const stream = await readPhoto();
     const upload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: bucketName,
-        Key: 'photos/whatever.jpg',
+        Key: `photos/${key}.jpg`,
         Body: stream,
         ContentType: 'image/png',
         ACL: 'public-read',
@@ -49,12 +49,22 @@ const uploadPhoto = async () => {
     const data = await promise;
     console.log('Successfully uploaded photo:', data);
     urls.push(data.Location);
-    writeUrlsToFile(urls);
   } catch (err) {
     console.log(err);
   }
 
 }
 
-uploadPhoto();
+const findAndUploadMultiplePhotos = async (number) => {
+  try {
+    for (let i = 1; i <= number; i += 1) {
+      await uploadPhoto(`other/${i}`);
+    }
+    writeUrlsToFile(urls);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+findAndUploadMultiplePhotos(2);
 

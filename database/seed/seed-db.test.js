@@ -13,7 +13,7 @@ describe('Photo DB Seed Connection', () => {
     await expect(seed.seedDatabase(db, seedData)).rejects.toThrow('Cannot read property \'dropDatabase\' of null');
   });
 
-  test('should throw error if connection closed', async () => {
+  test('should throw error if connection is closed', async () => {
     await mongoose.connect(`mongodb://localhost:27017/${databaseName}`, {
       useNewUrlParser: true,
       useUnifiedTopology: true,

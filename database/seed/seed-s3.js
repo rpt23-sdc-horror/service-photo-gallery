@@ -68,9 +68,9 @@ const findAndUploadMainPhotos = async (number) => {
       for (let j = 1; j <= 3; j += 1) {
         // eslint-disable-next-line no-await-in-loop
         let fileStream = await getPhoto(75, 75);
-        const thumbnailUrl = await uploadPhoto(fileStream, `main/thumbnail/${i}`);
+        const thumbnailUrl = await uploadPhoto(fileStream, `main/thumbnail/${i}-00${j}`);
         fileStream = await getPhoto(1024, 768);
-        const regularUrl = await uploadPhoto(fileStream, `main/regular/${i}`);
+        const regularUrl = await uploadPhoto(fileStream, `main/regular/${i}-00${j}`);
 
         const item = {
           product_id: i,
@@ -79,6 +79,7 @@ const findAndUploadMainPhotos = async (number) => {
             thumbnail_url: thumbnailUrl,
             regular_url: regularUrl,
           },
+          other_photos: [],
         };
 
         data.push(item);
@@ -92,7 +93,7 @@ const findAndUploadMainPhotos = async (number) => {
 const seedPhotos = async () => {
   try {
     // Upload "main" photos
-    await findAndUploadMainPhotos(1);
+    await findAndUploadMainPhotos(100);
 
     // Upload "other" photos
     // findAndUploadMultiplePhotos(5, 'other', 1024, 768);

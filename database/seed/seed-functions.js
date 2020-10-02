@@ -15,7 +15,7 @@ const seedDatabase = async (database, data) => {
       await addDocument(item);
     }
   } catch (err) {
-    console.log(err);
+    throw new Error(err);
   }
 };
 

@@ -8,6 +8,12 @@ const databaseName = 'fec-seed-photos-test';
 // Mongoose connection instance
 let db = null;
 
+describe('Photo DB Seed Connection', () => {
+  test('should throw error if not connected to MongoDB', async () => {
+    await expect(seed.seedDatabase(db, seedData)).rejects.toThrow();
+  });
+});
+
 describe('Photo DB Seed Script:', () => {
   // creates database connection (each test file should have different database)
   beforeAll(async () => {
@@ -30,12 +36,6 @@ describe('Photo DB Seed Script:', () => {
     await db.dropDatabase();
     await db.close();
   });
-
-  // this doesn't appear to actually work (no error is thrown)
-  // test('should throw error if not connected to MongoDB', async () => {
-  //   await db.close();
-  //   await expect(seed.seedDatabase(db, testData)).rejects.toThrow();
-  // });
 
   test('should drop database before script runs', async () => {
     try {

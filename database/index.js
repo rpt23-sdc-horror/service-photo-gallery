@@ -11,17 +11,10 @@ const getPhotosById = async (productId, styleId) => {
 };
 
 const addDocument = async (item) => {
-  const photo = new Photo({
-    product_id: item.product_id,
-    style_id: item.style_id,
-    main_photo: {
-      thumbnail_url: `placeholder.com/photos/main_thumbnail/${productId}-${styleId}.jpg`,
-      regular_url: `placeholder.com/photos/main_regular/${productId}-${styleId}.jpg`,
-    },
-  });
+  const photo = new Photo(item);
 
   await photo.save();
-  console.log(`Document '${productId}-${styleId}' saved!`);
+  console.log(`Document '${item.product_id}-${item.style_id}' saved!`);
 };
 
 module.exports = {

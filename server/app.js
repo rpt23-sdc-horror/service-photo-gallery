@@ -1,8 +1,11 @@
 const express = require('express');
+const path = require('path');
 
 const app = express();
 
 const photoDB = require('../database/index.js');
+
+app.use(express.static(path.join(__dirname, '../public')));
 
 // get all main photos (regular and thumbnail) for all styles by product ID
 app.get('/photos/:productid', async (req, res) => {

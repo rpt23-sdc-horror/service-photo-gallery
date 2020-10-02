@@ -13,7 +13,9 @@ class App extends React.Component {
   }
 
   render() {
-    <div>WTF</div>
+    return (
+      <div>WTF</div>
+    );
   }
 }
 

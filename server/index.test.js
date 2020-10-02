@@ -25,3 +25,5 @@ describe('Photo API', () => {
     expect(response.body).toEqual({ err: `no document found for productId ${productId} and styleId doesntexist` });
   });
 });
+
+// add test: what if there's a database error, what will happen?

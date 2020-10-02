@@ -9,10 +9,12 @@ require('dotenv').config();
 AWS.config.region = 'us-west-1';
 
 const bucketName = 'ultimate-nike';
+const urls = [];
 
-const readPhoto = async () => {
+// get a random photo from Lorem Pixel (different each time)
+const getPhoto = async (width, height) => {
   try {
-    const response = await fetch('http://lorempixel.com/400/200/sports/');
+    const response = await fetch(`http://lorempixel.com/${width}/${height}/sports/`);
     return response.body;
   } catch (err) {
     console.log(err);
@@ -20,9 +22,8 @@ const readPhoto = async () => {
   }
 };
 
-// urls array
-const urls = [];
-
+// store url array in file
+// should refactor this later to be able to store multiple arrays in the same file
 const writeUrlsToFile = async (data) => {
   try {
     const filePath = path.join(__dirname, 'seed-urls.json');
@@ -33,9 +34,9 @@ const writeUrlsToFile = async (data) => {
   }
 };
 
-const uploadPhoto = async (key) => {
+const uploadPhoto = async (key, width, height) => {
   try {
-    const stream = await readPhoto();
+    const stream = await getPhoto(width, height);
     const upload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: bucketName,
@@ -43,7 +44,7 @@ const uploadPhoto = async (key) => {
         Body: stream,
         ContentType: 'image/png',
         ACL: 'public-read',
-      }
+      },
     });
     const promise = upload.promise();
     const data = await promise;
@@ -52,19 +53,38 @@ const uploadPhoto = async (key) => {
   } catch (err) {
     console.log(err);
   }
+};
 
-}
-
-const findAndUploadMultiplePhotos = async (number) => {
+const findAndUploadMultiplePhotos = async (number, urlKey, width, height) => {
   try {
     for (let i = 1; i <= number; i += 1) {
-      await uploadPhoto(`other/${i}`);
+      // eslint-disable-next-line no-await-in-loop
+      await uploadPhoto(`${urlKey}/${i}`, width, height);
     }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// photo size images:
+// regular: 1024 width x 768 height
+// thumbnail: 160 width x 160 height
+
+const seedPhotos = async () => {
+  try {
+    // Upload "main" photos regular size
+    await findAndUploadMultiplePhotos(5, 'main/regular', 1024, 768);
+
+    // Upload "main" photos thumbnail size
+    await findAndUploadMultiplePhotos(5, 'main/thumbnail', 160, 160);
+
+    // Upload "other" photos
+    // findAndUploadMultiplePhotos(5, 'other', 1024, 768);
+
     writeUrlsToFile(urls);
   } catch (err) {
     console.log(err);
   }
 };
 
-findAndUploadMultiplePhotos(2);
-
+seedPhotos();

@@ -8,7 +8,7 @@ const getPhotosByProductId = async (productId) => {
       product_id: 1, style_id: 1, main_photo: 1, _id: 0,
     })
     .lean();
-  if (results === null) {
+  if (results.length === 0) {
     throw new Error(`no document found for productId ${productId}`);
   }
   return results;

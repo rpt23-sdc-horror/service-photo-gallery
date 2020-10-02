@@ -2,8 +2,20 @@
 
 const Photo = require('./PhotoModel.js');
 
-const getPhotosById = async (productId, styleId) => {
-  const result = await Photo.findOne({ product_id: productId, style_id: styleId });
+const getPhotosByProductId = async (productId) => {
+  const results = await Photo.find({ product_id: productId },
+    {
+      product_id: 1, style_id: 1, main_photo: 1, _id: 0,
+    })
+    .lean();
+  if (results === null) {
+    throw new Error(`no document found for productId ${productId}`);
+  }
+  return results;
+};
+
+const getPhotosByStyleId = async (productId, styleId) => {
+  const result = await Photo.findOne({ product_id: productId, style_id: styleId }).lean();
   if (result === null) {
     throw new Error(`no document found for productId ${productId} and styleId ${styleId}`);
   }
@@ -18,5 +30,5 @@ const addDocument = async (item) => {
 };
 
 module.exports = {
-  getPhotosById, addDocument,
+  getPhotosByProductId, getPhotosByStyleId, addDocument,
 };

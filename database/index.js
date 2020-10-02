@@ -19,7 +19,11 @@ const getPhotosByStyleId = async (productId, styleId) => {
   if (result === null) {
     throw new Error(`no document found for productId ${productId} and styleId ${styleId}`);
   }
-  return result;
+  const photosResult = [result.main_photo.regular_url];
+  result.other_photos.forEach((photo) => {
+    photosResult.push(photo.regular_url);
+  });
+  return photosResult;
 };
 
 const addDocument = async (item) => {

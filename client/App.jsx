@@ -8,17 +8,19 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.getPhotos(1, "001");
+  componentDidMount = () => {
+    this.getPhotosByStyle(1, "001");
   }
 
-  getPhotos = async (productId, styleId) => {
+  getPhotosByStyle = async (productId, styleId) => {
     const response = await fetch(`/photos/${productId}/${styleId}`);
     const data = await response.json();
     console.log(data);
-    this.setState({
-      photos: data
-    })
+    // const photos = [];
+    // photos.push(main_ph)
+    // this.setState({
+    //   photos: data
+    // })
   }
 
   render() {

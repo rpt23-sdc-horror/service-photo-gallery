@@ -6,7 +6,9 @@ const photoDB = require('../database/index.js');
 
 app.get('/photos/:productid/:styleid', async (req, res) => {
   try {
-    const photos = await photoDB.getPhotosById(req.params.productid, req.params.styleid);
+    const productId = Number(req.params.productid);
+    const styleId = req.params.styleid;
+    const photos = await photoDB.getPhotosById(productId, styleId);
     res.send(photos);
   } catch (err) {
     console.log(err);

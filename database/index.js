@@ -14,7 +14,7 @@ const addDocument = async (item) => {
   const photo = new Photo(item);
 
   await photo.save();
-  console.log(`Document '${item.product_id}-${item.style_id}' saved!`);
+  // console.log(`Document '${item.product_id}-${item.style_id}' saved!`);
 };
 
 module.exports = {

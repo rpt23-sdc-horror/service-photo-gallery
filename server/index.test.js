@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('./app.js');
 const db = require('../database/connect.js');
 
-const productId = 'XX1111';
+const productId = 1;
 const styleId = '001';
 
 afterAll(() => {
@@ -14,7 +14,7 @@ describe('Photo API', () => {
     const response = await request(app).get(`/photos/${productId}/${styleId}`);
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
-      product_id: 'XX1111',
+      product_id: 1,
       style_id: '001',
     });
   });

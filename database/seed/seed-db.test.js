@@ -1,38 +1,12 @@
 const mongoose = require('mongoose');
 const seed = require('./seed-functions.js');
 const Photo = require('../PhotoModel.js');
+const seedData = require('./seed-data.json');
 
 const databaseName = 'fec-seed-photos-test';
 
 // Mongoose connection instance
 let db = null;
-
-const testData = [
-  {
-    productId: 'XX1111',
-    styleId: '001',
-  },
-  {
-    productId: 'XX1111',
-    styleId: '002',
-  },
-  {
-    productId: 'XX1111',
-    styleId: '003',
-  },
-  {
-    productId: 'AA2222',
-    styleId: '001',
-  },
-  {
-    productId: 'AA2222',
-    styleId: '002',
-  },
-  {
-    productId: 'BB3333',
-    styleId: '001',
-  },
-];
 
 describe('Photo DB Seed Script:', () => {
   // creates database connection (each test file should have different database)
@@ -76,10 +50,17 @@ describe('Photo DB Seed Script:', () => {
 
   test('should add all data passed in', async () => {
     try {
-      await seed.seedDatabase(db, testData);
+      await seed.seedDatabase(db, seedData);
       const photos = await Photo.find().lean();
-      expect(photos).toHaveLength(6);
-      expect(photos[3].productId).toBe('AA2222');
+      expect(photos).toHaveLength(300);
+      expect(photos[299]).toMatchObject({
+        product_id: 100,
+        style_id: '003',
+        main_photo: {
+          thumbnail_url: 'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/thumbnail/100-003.jpg',
+          regular_url: 'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/100-003.jpg',
+        },
+      });
     } catch (err) {
       console.log(err);
     }

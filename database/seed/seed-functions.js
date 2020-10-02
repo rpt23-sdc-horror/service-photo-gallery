@@ -10,11 +10,10 @@ const resetDatabase = async (database) => {
 const seedDatabase = async (database, data) => {
   try {
     await resetDatabase(database);
-    /* eslint-disable */
+    /* eslint-disable no-await-in-loop */
     for (const item of data) {
       await addDocument(item);
     }
-    /* eslint-enable */
   } catch (err) {
     console.log(err);
   }

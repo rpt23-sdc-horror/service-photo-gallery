@@ -13,5 +13,3 @@ const data = require('./seed-data.json');
     console.log(`Connection to ${db.name} DB closed!`);
   }
 })();
-
-// should close database if error

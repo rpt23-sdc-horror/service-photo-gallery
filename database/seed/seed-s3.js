@@ -10,9 +10,9 @@ AWS.config.region = 'us-west-1';
 
 const bucketName = 'ultimate-nike';
 
-const data = [];
+const items = [];
 
-// I don't think there's a sufficient picture selection, I'll refactor to get pics from Unsplash later
+// I don't think there's a sufficient picture selection, I'll refactor to get pics from Unsplash
 
 // get a random photo from Lorem Pixel (different each time)
 const getPhoto = async (width, height) => {
@@ -26,11 +26,11 @@ const getPhoto = async (width, height) => {
 };
 
 // store data array with urls in file, refactor later
-const writeDataToFile = async (data) => {
+const writeDataToFile = async (newData) => {
   try {
     const filePath = path.join(__dirname, 'seed-data.json');
-    const file = await fs.readFileSync(filePath, "utf8") || "[]";
-    const update = JSON.parse(file).concat(data);
+    const file = await fs.readFileSync(filePath, 'utf8') || '[]';
+    const update = JSON.parse(file).concat(newData);
     await fs.writeFileSync(filePath, JSON.stringify(update, null, 2));
     console.log('wrote updated data to file');
   } catch (err) {
@@ -55,6 +55,7 @@ const uploadPhoto = async (stream, key) => {
     return data.Location;
   } catch (err) {
     console.log(err);
+    return null;
   }
 };
 
@@ -66,7 +67,7 @@ const findAndUploadMainPhotos = async (number) => {
   try {
     for (let i = 1; i <= number; i += 1) {
       for (let j = 1; j <= 3; j += 1) {
-        // eslint-disable-next-line no-await-in-loop
+        /* eslint-disable no-await-in-loop */
         let fileStream = await getPhoto(75, 75);
         const thumbnailUrl = await uploadPhoto(fileStream, `main/thumbnail/${i}-00${j}`);
         fileStream = await getPhoto(1024, 768);
@@ -74,7 +75,7 @@ const findAndUploadMainPhotos = async (number) => {
 
         const item = {
           product_id: i,
-          style_id: '00' + j,
+          style_id: `00${j}`,
           main_photo: {
             thumbnail_url: thumbnailUrl,
             regular_url: regularUrl,
@@ -82,7 +83,7 @@ const findAndUploadMainPhotos = async (number) => {
           other_photos: [],
         };
 
-        data.push(item);
+        items.push(item);
       }
     }
   } catch (err) {
@@ -98,7 +99,7 @@ const seedPhotos = async () => {
     // Upload "other" photos
     // findAndUploadMultiplePhotos(5, 'other', 1024, 768);
 
-    writeDataToFile(data);
+    writeDataToFile(items);
   } catch (err) {
     console.log(err);
   }

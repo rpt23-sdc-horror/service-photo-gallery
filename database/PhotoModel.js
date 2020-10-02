@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const photoSchema = new mongoose.Schema({
   product_id: {
-    type: String, required: true, minlength: 0, maxlength: 3,
+    type: Number, required: true, minlength: 0, maxlength: 3,
   },
   style_id: {
     type: String, required: true, minlength: 3, maxlength: 3,

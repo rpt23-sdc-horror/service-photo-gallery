@@ -10,10 +10,10 @@ const getPhotosById = async (productId, styleId) => {
   return result;
 };
 
-const addDocument = async ({ productId, styleId }) => {
+const addDocument = async (item) => {
   const photo = new Photo({
-    product_id: productId,
-    style_id: styleId,
+    product_id: item.product_id,
+    style_id: item.style_id,
     main_photo: {
       thumbnail_url: `placeholder.com/photos/main_thumbnail/${productId}-${styleId}.jpg`,
       regular_url: `placeholder.com/photos/main_regular/${productId}-${styleId}.jpg`,

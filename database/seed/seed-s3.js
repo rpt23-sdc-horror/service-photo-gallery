@@ -9,12 +9,15 @@ require('dotenv').config();
 AWS.config.region = 'us-west-1';
 
 const bucketName = 'ultimate-nike';
-const urls = [];
+
+const data = [];
+
+// I don't think there's a sufficient picture selection, I'll refactor to get pics from Unsplash later
 
 // get a random photo from Lorem Pixel (different each time)
 const getPhoto = async (width, height) => {
   try {
-    const response = await fetch(`http://lorempixel.com/${width}/${height}/sports/`);
+    const response = await fetch(`http://lorempixel.com/${width}/${height}`);
     return response.body;
   } catch (err) {
     console.log(err);
@@ -22,21 +25,21 @@ const getPhoto = async (width, height) => {
   }
 };
 
-// store url array in file
-// should refactor this later to be able to store multiple arrays in the same file
-const writeUrlsToFile = async (data) => {
+// store data array with urls in file, refactor later
+const writeDataToFile = async (data) => {
   try {
-    const filePath = path.join(__dirname, 'seed-urls.json');
-    await fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
-    console.log('wrote urls to file');
+    const filePath = path.join(__dirname, 'seed-data.json');
+    const file = await fs.readFileSync(filePath, "utf8") || "[]";
+    const update = JSON.parse(file).concat(data);
+    await fs.writeFileSync(filePath, JSON.stringify(update, null, 2));
+    console.log('wrote updated data to file');
   } catch (err) {
     console.log(err);
   }
 };
 
-const uploadPhoto = async (key, width, height) => {
+const uploadPhoto = async (stream, key) => {
   try {
-    const stream = await getPhoto(width, height);
     const upload = new AWS.S3.ManagedUpload({
       params: {
         Bucket: bucketName,
@@ -49,18 +52,7 @@ const uploadPhoto = async (key, width, height) => {
     const promise = upload.promise();
     const data = await promise;
     console.log('Successfully uploaded photo:', data);
-    urls.push(data.Location);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-const findAndUploadMultiplePhotos = async (number, urlKey, width, height) => {
-  try {
-    for (let i = 1; i <= number; i += 1) {
-      // eslint-disable-next-line no-await-in-loop
-      await uploadPhoto(`${urlKey}/${i}`, width, height);
-    }
+    return data.Location;
   } catch (err) {
     console.log(err);
   }
@@ -70,18 +62,42 @@ const findAndUploadMultiplePhotos = async (number, urlKey, width, height) => {
 // regular: 1024 width x 768 height
 // thumbnail: 160 width x 160 height
 
+const findAndUploadMainPhotos = async (number) => {
+  try {
+    for (let i = 1; i <= number; i += 1) {
+      for (let j = 1; j <= 3; j += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        let fileStream = await getPhoto(75, 75);
+        const thumbnailUrl = await uploadPhoto(fileStream, `main/thumbnail/${i}`);
+        fileStream = await getPhoto(1024, 768);
+        const regularUrl = await uploadPhoto(fileStream, `main/regular/${i}`);
+
+        const item = {
+          product_id: i,
+          style_id: '00' + j,
+          main_photo: {
+            thumbnail_url: thumbnailUrl,
+            regular_url: regularUrl,
+          },
+        };
+
+        data.push(item);
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const seedPhotos = async () => {
   try {
-    // Upload "main" photos regular size
-    await findAndUploadMultiplePhotos(5, 'main/regular', 1024, 768);
-
-    // Upload "main" photos thumbnail size
-    await findAndUploadMultiplePhotos(5, 'main/thumbnail', 160, 160);
+    // Upload "main" photos
+    await findAndUploadMainPhotos(1);
 
     // Upload "other" photos
     // findAndUploadMultiplePhotos(5, 'other', 1024, 768);
 
-    writeUrlsToFile(urls);
+    writeDataToFile(data);
   } catch (err) {
     console.log(err);
   }

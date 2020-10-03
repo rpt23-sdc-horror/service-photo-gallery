@@ -17,9 +17,14 @@ class DevApp extends React.Component {
   }
 
   changeStyle = () => {
+    let newStyleId = Number(this.state.styleId) + 1;
+    if (newStyleId > 3) {
+      newStyleId = 1;
+    }
+
     this.setState({
       productId: Math.ceil(Math.random() * 100),
-      styleId: '00' + Math.ceil(Math.random() * 3)
+      styleId: '00' + newStyleId
     })
   }
 

@@ -11,8 +11,8 @@ class App extends React.Component {
 
   // The productId and the currently selected styleId should be passed down through props
   componentDidUpdate(prevProps) {
-    console.log(prevProps);
     if (this.props.styleId !== prevProps.styleId) {
+      console.log('styleId changed! New ID: ', this.props.styleId);
       this.fetchPhotosByStyle(this.props.productId, this.props.styleId);
     }
   }

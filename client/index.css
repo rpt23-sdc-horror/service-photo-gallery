@@ -8,8 +8,6 @@
 .photo-wrapper {
   margin-left: 8px;
   margin-right: 4px;
-  /* padding-top: 100%; */
-  /* width: 100%; */
   padding-bottom: 115%;
   position: relative;
   margin-bottom: 12px;
@@ -17,16 +15,10 @@
 
 /* in gallery view, the image width is 80% of the height*/
 .photo-wrapper img {
-  /* padding-left: 8px;
-  padding-right: 4px; */
   width: 100%;
   height: 100%;
   position: absolute;
   top: 0; bottom: 0; left: 0; right: 0;
   color: white;
   object-fit: contain;
-  /* width: 100%;
-  height: 100%; */
-  /* width: 100%;
-  height: calc(125% + 50px); */
 }

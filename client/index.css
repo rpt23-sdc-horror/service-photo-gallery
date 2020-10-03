@@ -29,10 +29,17 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background: blue;
+  min-height: 100%;
+  background: white;
+  z-index: 1;
 }
 
 #photo-modal.active {
   display: block;
+}
+
+#photo-modal img {
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-bottom: 8px;
 }

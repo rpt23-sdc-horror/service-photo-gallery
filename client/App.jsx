@@ -1,11 +1,13 @@
 import React from 'react';
-import Photo from './components/Photo.jsx';
+import PhotoCard from './components/PhotoCard.jsx';
+import PhotoModal from "./components/PhotoModal.jsx";
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       photos: [],
+      modalActive: false,
     };
   }
 
@@ -17,10 +19,6 @@ class App extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   this.getPhotosByStyle(1, '001');
-  // }
-
   fetchPhotosByStyle = async (productId, styleId) => {
     const response = await fetch(`/photos/${productId}/${styleId}`);
     const data = await response.json();
@@ -29,14 +27,26 @@ class App extends React.Component {
     });
   }
 
+  clickPhotoOpen = (e) => {
+    console.log('photo clicked');
+    const photoIndex = +e.target.dataset.index;
+    console.log(photoIndex);
+    this.setState({
+      modalActive: true
+    })
+  }
+
   render() {
     const photosList = this.state.photos.map((photo, index) =>
-      <Photo url={photo} key={index} />
+      <PhotoCard url={photo} key={index} index={index} clickPhotoOpen={this.clickPhotoOpen} />
     );
 
     return (
-      <div id="gallery-large">
-        {photosList}
+      <div id="photo-gallery">
+        <PhotoModal active={this.state.modalActive} photos={this.state.photos}/>
+        <div id="gallery-large">
+          {photosList}
+        </div>
       </div>
     );
   }

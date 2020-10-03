@@ -130,4 +130,4 @@ const seedPhotos = async () => {
 
 // seedPhotos();
 
-writeOtherUrlsToFile();
+// writeOtherUrlsToFile();

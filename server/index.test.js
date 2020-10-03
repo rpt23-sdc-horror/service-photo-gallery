@@ -14,9 +14,9 @@ describe('API endpoint: get photos for a specific style', () => {
   test('should get correct photo for a product + style id', async () => {
     const response = await request(app).get(`/photos/${productId}/${styleId}`);
     expect(response.status).toBe(200);
-    expect(response.body).toMatchObject([
-      'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg',
-    ]);
+    expect(response.body).toHaveLength(9);
+    expect(response.body[0]).toBe('https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg');
+    expect(response.body[8]).toBe('https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/57-002.jpg');
   });
 
   test('should get 400 error for non-existent id', async () => {

@@ -15,12 +15,9 @@ class App extends React.Component {
   getPhotosByStyle = async (productId, styleId) => {
     const response = await fetch(`/photos/${productId}/${styleId}`);
     const data = await response.json();
-    console.log(data);
-    // const photos = [];
-    // photos.push(main_ph)
-    // this.setState({
-    //   photos: data
-    // })
+    this.setState({
+      photos: data
+    })
   }
 
   render() {

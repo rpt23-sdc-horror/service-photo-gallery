@@ -16,6 +16,8 @@
   "plugins": ["react", "jest"],
   "rules": {
     "no-console": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "import/extensions": ["error", "always", {"ignorePackages": true} ],
+    "react/destructuring-assignment": ["warning", "always", { "ignoreClassFields": true }]
   }
 }

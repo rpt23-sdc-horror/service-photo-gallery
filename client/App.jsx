@@ -1,4 +1,5 @@
 import React from 'react';
+import Photo from './components/Photo.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends React.Component {
   }
 
   render() {
-    const photosList = this.state.photos.map((photo) => <div><img src={photo} /></div>);
+    const photosList = this.state.photos.map((photo) => <Photo photo={photo} />);
     return (
       <div id="gallery-large">
         {photosList}

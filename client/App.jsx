@@ -9,7 +9,7 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.getPhotosByStyle(1, '001');
   }
 
@@ -21,8 +21,12 @@ class App extends React.Component {
     });
   }
 
+  renderPhoto(url, index) {
+    return <Photo url={url} key={index} />
+  }
+
   render() {
-    const photosList = this.state.photos.map((photo) => <Photo photo={photo} />);
+    const photosList = this.state.photos.map((photo, index) => {return this.renderPhoto(photo, index)});
     return (
       <div id="gallery-large">
         {photosList}

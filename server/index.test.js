@@ -19,10 +19,6 @@ describe('API endpoint: get photos for a specific style', () => {
     ]);
   });
 
-  // expect(response.body).toMatchObject([
-  //   'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg',
-  // ]);
-
   test('should get 400 error for non-existent id', async () => {
     const response = await request(app).get(`/photos/${productId}/doesntexist`);
     expect(response.status).toBe(400);

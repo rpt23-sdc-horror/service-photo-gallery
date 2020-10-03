@@ -21,12 +21,11 @@ class App extends React.Component {
     });
   }
 
-  renderPhoto(url, index) {
-    return <Photo url={url} key={index} />
-  }
-
   render() {
-    const photosList = this.state.photos.map((photo, index) => {return this.renderPhoto(photo, index)});
+    const photosList = this.state.photos.map((photo, index) =>
+      <Photo url={photo} key={index} />
+    );
+
     return (
       <div id="gallery-large">
         {photosList}

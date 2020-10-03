@@ -2,7 +2,7 @@ import React from 'react';
 
 class App extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       photos: [],
     };
@@ -16,13 +16,16 @@ class App extends React.Component {
     const response = await fetch(`/photos/${productId}/${styleId}`);
     const data = await response.json();
     this.setState({
-      photos: data
-    })
+      photos: data,
+    });
   }
 
   render() {
+    const photosList = this.state.photos.map((photo) => <div><img src={photo} /></div>);
     return (
-      <div>WTF</div>
+      <div id="gallery-large">
+        {photosList}
+      </div>
     );
   }
 }

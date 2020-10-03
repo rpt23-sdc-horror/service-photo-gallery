@@ -1,3 +1,5 @@
-#photo-gallery {
-  background-color: blue;
+/* Breakpoint: at display sizes of 1024 pixels and above */
+#large-grid {
+  display: grid,
+
 }

@@ -5,6 +5,7 @@
     "es2021": true,
     "jest/globals": true
   },
+  "parser": "babel-eslint",
   "extends": ["plugin:react/recommended", "airbnb", "plugin:jest/recommended", "plugin:jest/style"],
   "parserOptions": {
     "ecmaFeatures": {

@@ -9,7 +9,7 @@ class App extends React.Component {
   }
 
   componentDidMount = () => {
-    this.getPhotosByStyle(1, "001");
+    this.getPhotosByStyle(1, '001');
   }
 
   getPhotosByStyle = async (productId, styleId) => {

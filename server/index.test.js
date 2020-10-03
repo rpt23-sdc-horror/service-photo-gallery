@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('./app.js');
 const db = require('../database/connect.js');
+require('regenerator-runtime/runtime');
 
 const productId = 1;
 const styleId = '001';
@@ -13,15 +14,14 @@ describe('API endpoint: get photos for a specific style', () => {
   test('should get correct photo for a product + style id', async () => {
     const response = await request(app).get(`/photos/${productId}/${styleId}`);
     expect(response.status).toBe(200);
-    expect(response.body).toMatchObject({
-      product_id: 1,
-      style_id: '001',
-      main_photo: {
-        thumbnail_url: 'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/thumbnail/1-001.jpg',
-        regular_url: 'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg',
-      },
-    });
+    expect(response.body).toMatchObject([
+      'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg',
+    ]);
   });
+
+  // expect(response.body).toMatchObject([
+  //   'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg',
+  // ]);
 
   test('should get 400 error for non-existent id', async () => {
     const response = await request(app).get(`/photos/${productId}/doesntexist`);

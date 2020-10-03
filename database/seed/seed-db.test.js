@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const seed = require('./seed-functions.js');
 const Photo = require('../PhotoModel.js');
 const seedData = require('./seed-data.json');
+require('regenerator-runtime/runtime');
 
 const databaseName = 'fec-seed-photos-test';
 

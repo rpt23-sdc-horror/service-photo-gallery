@@ -48,7 +48,7 @@ const writeOtherUrlsToFile = async () => {
     const existingItems = JSON.parse(file);
     existingItems.forEach((item) => {
       for (let i = 1; i <= 8; i += 1) {
-        const productId = Math.round(Math.random() * 100);
+        const productId = Math.ceil(Math.random() * 100);
         const styleId = `00${Math.ceil(Math.random() * 3)}`;
         const url = `https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/${productId}-${styleId}.jpg`;
         item.other_photos.push({

@@ -2,18 +2,26 @@ import React from 'react';
 import Photo from './components/Photo.jsx';
 
 class App extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
       photos: [],
     };
   }
 
-  componentDidMount() {
-    this.getPhotosByStyle(1, '001');
+  // The productId and the currently selected styleId should be passed down through props
+  componentDidUpdate(prevProps) {
+    console.log(prevProps);
+    if (this.props.styleId !== prevProps.styleId) {
+      this.fetchPhotosByStyle(this.props.productId, this.props.styleId);
+    }
   }
 
-  getPhotosByStyle = async (productId, styleId) => {
+  // componentDidMount() {
+  //   this.getPhotosByStyle(1, '001');
+  // }
+
+  fetchPhotosByStyle = async (productId, styleId) => {
     const response = await fetch(`/photos/${productId}/${styleId}`);
     const data = await response.json();
     this.setState({

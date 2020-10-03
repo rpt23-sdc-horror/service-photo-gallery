@@ -1,0 +1,108 @@
+const AWS = require('aws-sdk');
+const fs = require('fs');
+const path = require('path');
+const fetch = require('node-fetch');
+
+require('dotenv').config();
+
+// Set the Region
+AWS.config.region = 'us-west-1';
+
+const bucketName = 'ultimate-nike';
+
+const items = [];
+
+// I don't think there's a sufficient picture selection, I'll refactor to get pics from Unsplash
+
+// get a random photo from Lorem Pixel (different each time)
+const getPhoto = async (width, height) => {
+  try {
+    const response = await fetch(`http://lorempixel.com/${width}/${height}`);
+    return response.body;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+// store data array with urls in file, refactor later
+const writeDataToFile = async (newData) => {
+  try {
+    const filePath = path.join(__dirname, 'seed-data.json');
+    const file = await fs.readFileSync(filePath, 'utf8') || '[]';
+    const update = JSON.parse(file).concat(newData);
+    await fs.writeFileSync(filePath, JSON.stringify(update, null, 2));
+    console.log('wrote updated data to file');
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const uploadPhoto = async (stream, key) => {
+  try {
+    const upload = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: bucketName,
+        Key: `photos/${key}.jpg`,
+        Body: stream,
+        ContentType: 'image/png',
+        ACL: 'public-read',
+      },
+    });
+    const promise = upload.promise();
+    const data = await promise;
+    console.log('Successfully uploaded photo:', data);
+    return data.Location;
+  } catch (err) {
+    console.log(err);
+    return null;
+  }
+};
+
+// photo size images:
+// regular: 1024 width x 768 height
+// thumbnail: 160 width x 160 height
+
+const findAndUploadMainPhotos = async (number) => {
+  try {
+    for (let i = 1; i <= number; i += 1) {
+      for (let j = 1; j <= 3; j += 1) {
+        /* eslint-disable no-await-in-loop */
+        let fileStream = await getPhoto(75, 75);
+        const thumbnailUrl = await uploadPhoto(fileStream, `main/thumbnail/${i}-00${j}`);
+        fileStream = await getPhoto(1024, 768);
+        const regularUrl = await uploadPhoto(fileStream, `main/regular/${i}-00${j}`);
+
+        const item = {
+          product_id: i,
+          style_id: `00${j}`,
+          main_photo: {
+            thumbnail_url: thumbnailUrl,
+            regular_url: regularUrl,
+          },
+          other_photos: [],
+        };
+
+        items.push(item);
+      }
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const seedPhotos = async () => {
+  try {
+    // Upload "main" photos
+    await findAndUploadMainPhotos(100);
+
+    // Upload "other" photos
+    // findAndUploadMultiplePhotos(5, 'other', 1024, 768);
+
+    writeDataToFile(items);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+seedPhotos();

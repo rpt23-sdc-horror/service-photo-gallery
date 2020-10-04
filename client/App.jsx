@@ -45,7 +45,7 @@ class App extends React.Component {
     return (
       <div id="photo-gallery">
         <PhotoModal active={this.state.modalActive} photos={this.state.photos} scroll={this.state.modalScroll}/>
-        <div id="gallery-large">
+        <div id="gallery">
           {photosList}
         </div>
       </div>

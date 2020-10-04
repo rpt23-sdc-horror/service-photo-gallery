@@ -13,6 +13,10 @@ class PhotoModal extends React.Component {
     });
   }
 
+  closeModal = () => {
+    console.log('x closed clicked');
+  }
+
   // const photosList = photos.map((photo, index) => {
   //   return <img src={photo} key={index}/>;
   // });
@@ -24,6 +28,7 @@ class PhotoModal extends React.Component {
 
     return (
       <div id="photo-modal" className={this.props.active ? "active" : "hidden"}>
+        <button id="close-btn" onClick={this.closeModal}>x</button>
         {photosList}
       </div>
     )

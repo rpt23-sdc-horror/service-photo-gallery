@@ -7,7 +7,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       photos: [],
-      modalActive: false,
+      modalShow: false,
+      modalScroll: 0,
     };
   }
 
@@ -28,13 +29,23 @@ class App extends React.Component {
   }
 
   clickPhotoOpen = (e) => {
-    console.log('photo clicked');
     const photoIndex = +e.target.dataset.index;
     const modalPhotoHeight = window.innerWidth * 1.25 + 8;
     this.setState({
-      modalActive: true,
+      modalShow: true,
       modalScroll: modalPhotoHeight * photoIndex,
     })
+  }
+
+  hideModal = () => {
+    this.setState({
+      modalShow: false,
+      modalScroll: 0,
+    });
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: 'auto'
+    // });
   }
 
   render() {
@@ -44,7 +55,7 @@ class App extends React.Component {
 
     return (
       <div id="photo-gallery">
-        <PhotoModal active={this.state.modalActive} photos={this.state.photos} scroll={this.state.modalScroll}/>
+        <PhotoModal show={this.state.modalShow} photos={this.state.photos} scroll={this.state.modalScroll} hide={this.hideModal}/>
         <div id="gallery">
           {photosList}
         </div>

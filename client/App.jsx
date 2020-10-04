@@ -3,8 +3,8 @@ import PhotoCard from './components/PhotoCard.jsx';
 import PhotoModal from "./components/PhotoModal.jsx";
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       photos: [],
       modalActive: false,
@@ -30,10 +30,10 @@ class App extends React.Component {
   clickPhotoOpen = (e) => {
     console.log('photo clicked');
     const photoIndex = +e.target.dataset.index;
-    const modalPhotoHeight = window.innerWidth * 1.20;
+    const modalPhotoHeight = window.innerWidth * 1.25 + 8;
     this.setState({
       modalActive: true,
-      clickedPhotoIndex: photoIndex
+      modalScroll: modalPhotoHeight * photoIndex,
     })
   }
 
@@ -44,7 +44,7 @@ class App extends React.Component {
 
     return (
       <div id="photo-gallery">
-        <PhotoModal active={this.state.modalActive} photos={this.state.photos}/>
+        <PhotoModal active={this.state.modalActive} photos={this.state.photos} scroll={this.state.modalScroll}/>
         <div id="gallery-large">
           {photosList}
         </div>

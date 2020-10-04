@@ -42,10 +42,6 @@ class App extends React.Component {
       modalShow: false,
       modalScroll: 0,
     });
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: 'auto'
-    // });
   }
 
   render() {

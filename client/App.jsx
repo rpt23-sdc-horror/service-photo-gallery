@@ -30,9 +30,10 @@ class App extends React.Component {
   clickPhotoOpen = (e) => {
     console.log('photo clicked');
     const photoIndex = +e.target.dataset.index;
-    console.log(photoIndex);
+    const modalPhotoHeight = window.innerWidth * 1.20;
     this.setState({
-      modalActive: true
+      modalActive: true,
+      clickedPhotoIndex: photoIndex
     })
   }
 

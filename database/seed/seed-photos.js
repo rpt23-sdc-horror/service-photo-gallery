@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const AWS = require('aws-sdk');
 const fs = require('fs');
 const path = require('path');
@@ -33,6 +35,29 @@ const writeDataToFile = async (newData) => {
     const update = JSON.parse(file).concat(newData);
     await fs.writeFileSync(filePath, JSON.stringify(update, null, 2));
     console.log('wrote updated data to file');
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// fil out "other photos" in seed-data file with placeholder urls (random main photos)
+const writeOtherUrlsToFile = async () => {
+  try {
+    const filePath = path.join(__dirname, 'seed-data.json');
+    const file = await fs.readFileSync(filePath, 'utf8') || '[]';
+    const existingItems = JSON.parse(file);
+    existingItems.forEach((item) => {
+      for (let i = 1; i <= 8; i += 1) {
+        const productId = Math.ceil(Math.random() * 100);
+        const styleId = `00${Math.ceil(Math.random() * 3)}`;
+        const url = `https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/${productId}-${styleId}.jpg`;
+        item.other_photos.push({
+          regular_url: url,
+        });
+      }
+    });
+    await fs.writeFileSync(filePath, JSON.stringify(existingItems, null, 2));
+    console.log('wrote other photo urls to file');
   } catch (err) {
     console.log(err);
   }
@@ -105,4 +130,6 @@ const seedPhotos = async () => {
   }
 };
 
-seedPhotos();
+// seedPhotos();
+
+// writeOtherUrlsToFile();

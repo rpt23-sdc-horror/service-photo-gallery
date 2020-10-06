@@ -9,13 +9,15 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "react-dev": "webpack -d --watch",
+    "client-dev": "webpack -d --watch",
+    "app-placeholder": "webpack -d --watch --config ./webpack.config.dev.js",
     "server-dev": "nodemon server/index.js",
     "test": "jest --coverage",
     "test:watch": "jest --watch --coverage",
     "seed-db": "node database/seed/seed-db.js"
   },
   "dependencies": {
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "aws-sdk": "^2.764.0",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
@@ -23,6 +25,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.10.7",
     "node-fetch": "^2.6.1",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "regenerator-runtime": "^0.13.7",
@@ -32,6 +35,7 @@
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
+    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "css-loader": "^4.3.0",

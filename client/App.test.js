@@ -78,7 +78,7 @@ describe("Photo Modal", () => {
     );
   });
 
-  it('should open the photo modal on clicking on a gallery card', () => {
+  it('should open the photo modal on clicking on a gallery card and scroll to right height', () => {
     const galleryCard = app.find("#gallery .photo-card").first();
     galleryCard.simulate("click", {target: {dataset: {index: 5}}});
     expect(app.find("#photo-modal")).toHaveClassName("active");

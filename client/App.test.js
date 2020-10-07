@@ -84,5 +84,15 @@ describe("Photo Modal", () => {
     expect(app.find("#photo-modal")).toHaveClassName("active");
     expect(app.state('modalScroll')).toEqual(6440);
   });
+
+  it("should close the photo modal when close btn is clicked", () => {
+    app.setState({
+      modalShow: true,
+    });
+    expect(app.find("#photo-modal")).toHaveClassName("active");
+    const closeBtn = app.find("#close-btn");
+    closeBtn.simulate("click");
+    expect(app.find("#photo-modal")).toHaveClassName("hidden");
+  })
 });
 

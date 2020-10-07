@@ -9,13 +9,18 @@ beforeEach(() => {
 });
 
 describe("Component rendering", () => {
-  test("Photo component should render correctly", () => {
+  it("should render Photo component and sub-components", () => {
     expect(app).toExist();
     expect(app).toContainMatchingElement("#gallery");
     expect(app).toContainMatchingElement("#photo-modal");
   });
 
-  test("Photo component should render gallery view by default", () => {
+  it("should render empty gallery view by default", () => {
+    const gallery = app.find("#gallery");
+    expect(gallery.children()).toHaveLength(0);
+  });
+
+  it("should hide photo modal by default", () => {
     expect(app.find("#photo-modal")).toHaveClassName("hidden");
   });
 });

@@ -47,7 +47,7 @@ describe("Photo Gallery", () => {
   it('should render photos in gallery view', () => {
     const gallery = app.find("#gallery");
     expect(gallery.children()).toHaveLength(9);
-  })
+  });
 
   it('should render a photo card with img url', () => {
     const gallery = app.find("#gallery");
@@ -56,4 +56,33 @@ describe("Photo Gallery", () => {
       '<div class="photo-card"><img src="https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg" data-index="0" alt="this is a description"></div>'
     );
   })
-})
+});
+
+describe("Photo Modal", () => {
+  beforeEach(() => {
+    app.setState({
+      photos
+    });
+  });
+
+  it('should render photos into photo modal', () => {
+    const modal = app.find("#photo-modal");
+    expect(modal.children()).toHaveLength(10);
+  });
+
+  it('should render a photo card with img url', () => {
+    const modal = app.find("#photo-modal");
+    const card = modal.find(".photo-card").at(0);
+    expect(card).toHaveHTML(
+      '<div class="photo-card"><img src="https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg" data-index="0" alt="this is a description"></div>'
+    );
+  });
+
+  it('should open the photo modal on clicking on a gallery card', () => {
+    const galleryCard = app.find("#gallery .photo-card").first();
+    galleryCard.simulate("click", {target: {dataset: {index: 5}}});
+    expect(app.find("#photo-modal")).toHaveClassName("active");
+    expect(app.state('modalScroll')).toEqual(6440);
+  });
+});
+

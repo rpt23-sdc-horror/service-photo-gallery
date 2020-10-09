@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PhotoCard from './components/PhotoCard.jsx';
 import PhotoModal from './components/PhotoModal.jsx';
@@ -9,17 +10,29 @@ class App extends React.Component {
     this.state = {
       photos: [],
       modalShow: false,
+      carouselShow: window.innerWidth < 640 === true,
       modalScroll: 0,
     };
   }
 
-  // The productId and the currently selected styleId should be passed down through props
   componentDidMount() {
     const { pathname } = window.location;
     const productId = pathname[1];
     const styleId = pathname.slice(3, 6);
     this.fetchPhotosByStyle(productId, styleId);
+    window.addEventListener('resize', this.handleResize);
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    const carouselShow = window.innerWidth < 640 === true;
+    this.setState({
+      carouselShow,
+    });
+  };
 
   fetchPhotosByStyle = async (productId, styleId) => {
     const response = await fetch(`/photos/${productId}/${styleId}`);
@@ -46,7 +59,11 @@ class App extends React.Component {
   }
 
   render() {
-    const photosList = this.state.photos.map((photo, index) => (
+    const {
+      carouselShow, modalShow, photos, modalScroll,
+    } = this.state;
+
+    const photosList = photos.map((photo, index) => (
       <PhotoCard
         url={photo}
         key={index}
@@ -55,21 +72,22 @@ class App extends React.Component {
       />
     ));
 
-    const { modalShow, photos, modalScroll } = this.state;
-
     return (
-      <div id="photo-gallery">
+      <>
         <PhotoModal
           show={modalShow}
           photos={photos}
           scroll={modalScroll}
           hide={this.hideModal}
         />
-        <div id="gallery">
-          {photosList}
-        </div>
-        <PhotoCarousel photos={photos} />
-      </div>
+        {carouselShow
+          ? <PhotoCarousel photos={photos} />
+          : (
+            <div id="gallery">
+              {photosList}
+            </div>
+          )}
+      </>
     );
   }
 }

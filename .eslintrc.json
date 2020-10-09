@@ -24,6 +24,8 @@
     "no-restricted-syntax": "off",
     "import/extensions": ["error", "always", {"ignorePackages": true} ],
     "react/destructuring-assignment": ["warn", "always", { "ignoreClassFields": true }],
-    "react/jsx-filename-extension": "off"
+    "react/jsx-filename-extension": "off",
+    "jsx-a11y/interactive-supports-focus": "off",
+    "jsx-a11y/click-events-have-key-events": "off"
   }
 }

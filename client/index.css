@@ -3,13 +3,11 @@
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: auto;
-  /* grid-column-gap: 8px; */
 }
 
 .photo-card {
   margin-left: 8px;
   margin-right: 4px;
-  /* width: 100%; */
   padding-bottom: 125%;
   position: relative;
   margin-bottom: 12px;
@@ -33,7 +31,7 @@
   width: 100%;
   min-height: 100%;
   background: white;
-  z-index: 1;
+  z-index: 2;
 }
 
 #photo-modal.active {
@@ -52,7 +50,7 @@
   top: 0px;
   right: 0px;
   padding: 40px;
-  z-index: 2;
+  z-index: 3;
   background: none;
   border: none;
   font-size: 2rem;
@@ -60,4 +58,43 @@
 
 #close-btn:focus {
   outline: none;
+}
+
+#photo-carousel {
+  position: relative;
+}
+
+#photo-carousel .photo-card {
+  display: none;
+  padding-bottom: 0%;
+}
+
+#photo-carousel .photo-card.showing {
+  display: block;
+  padding-bottom: 0%;
+}
+
+#photo-carousel img {
+  position: relative;
+  object-fit: contain;
+}
+
+.prev-btn, .next-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  color: #9b9b9b;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 50%;
+  user-select: none;
+  z-index: 1;
+  margin-left: 20px;
+}
+
+.next-btn {
+  right: 0;
+  margin-right: 20px;
 }

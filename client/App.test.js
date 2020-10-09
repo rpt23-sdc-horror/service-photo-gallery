@@ -15,13 +15,14 @@ const photos = [
   'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/57-002.jpg',
 ];
 
-beforeEach(() => {
-  // clear component state
-  app.unmount();
-  app.mount();
+beforeEach(async () => {
+  // clear component state and reset window width
+  global.innerWidth = 1024;
+  await app.unmount();
+  await app.mount();
 });
 
-describe('Component rendering', () => {
+describe('Component rendering (default 1024px width)', () => {
   it('should render Photo component and sub-components', () => {
     expect(app).toExist();
     expect(app).toContainMatchingElement('#gallery');
@@ -35,6 +36,30 @@ describe('Component rendering', () => {
 
   it('should hide photo modal by default', () => {
     expect(app.find('#photo-modal')).toHaveClassName('hidden');
+  });
+});
+
+describe('Responsive Breakpoints', () => {
+  beforeEach(() => {
+    app.setState({
+      photos,
+    });
+  });
+
+  it('should render gallery view at width >= 640px', () => {
+    global.innerWidth = 640;
+    global.dispatchEvent(new Event('resize'));
+    app.update();
+    expect(app.find('#gallery')).toExist();
+    expect(app.find('#photo-carousel')).not.toExist();
+  });
+
+  it('should render carousel view at width < 640px', () => {
+    global.innerWidth = 639;
+    global.dispatchEvent(new Event('resize'));
+    app.update();
+    expect(app.find('#gallery')).not.toExist();
+    expect(app.find('#photo-carousel')).toExist();
   });
 });
 
@@ -54,7 +79,7 @@ describe('Photo Gallery', () => {
     const gallery = app.find('#gallery');
     const card = gallery.find('.photo-card').first();
     expect(card).toHaveHTML(
-      '<div class="photo-card"><img src="https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg" data-index="0" alt="this is a description"></div>',
+      '<div class="photo-card showing" role="button"><img src="https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg" data-index="0" alt="this is a description"></div>',
     );
   });
 });
@@ -75,7 +100,7 @@ describe('Photo Modal', () => {
     const modal = app.find('#photo-modal');
     const card = modal.find('.photo-card').at(0);
     expect(card).toHaveHTML(
-      '<div class="photo-card"><img src="https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg" data-index="0" alt="this is a description"></div>',
+      '<div class="photo-card showing" role="button"><img src="https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg" data-index="0" alt="this is a description"></div>',
     );
   });
 
@@ -97,4 +122,7 @@ describe('Photo Modal', () => {
   });
 });
 
-// test for css sizes and styling, responsiveness
+// Future tests:
+// Refactor to move tests to individual components
+// test for css sizes and styling
+// test for actually VISIBLE dom components (not just classes and styles)

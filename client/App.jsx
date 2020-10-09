@@ -1,6 +1,6 @@
 import React from 'react';
 import PhotoCard from './components/PhotoCard.jsx';
-import PhotoModal from "./components/PhotoModal.jsx";
+import PhotoModal from './components/PhotoModal.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class App extends React.Component {
     this.setState({
       modalShow: true,
       modalScroll: modalPhotoHeight * photoIndex,
-    })
+    });
   }
 
   hideModal = () => {
@@ -45,13 +45,11 @@ class App extends React.Component {
   }
 
   render() {
-    const photosList = this.state.photos.map((photo, index) =>
-      <PhotoCard url={photo} key={index} index={index} clickPhotoOpen={this.clickPhotoOpen} />
-    );
+    const photosList = this.state.photos.map((photo, index) => <PhotoCard url={photo} key={index} index={index} clickPhotoOpen={this.clickPhotoOpen} />);
 
     return (
       <div id="photo-gallery">
-        <PhotoModal show={this.state.modalShow} photos={this.state.photos} scroll={this.state.modalScroll} hide={this.hideModal}/>
+        <PhotoModal show={this.state.modalShow} photos={this.state.photos} scroll={this.state.modalScroll} hide={this.hideModal} />
         <div id="gallery">
           {photosList}
         </div>

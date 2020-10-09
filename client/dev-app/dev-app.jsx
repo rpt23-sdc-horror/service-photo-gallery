@@ -5,15 +5,15 @@ import ReactDOM from 'react-dom';
 import 'core-js/stable';
 
 import '../index.css';
-import App from "../App.jsx";
+import App from '../App.jsx';
 
 class DevApp extends React.Component {
   constructor() {
     super();
     this.state = {
       productId: null,
-      styleId: null
-    }
+      styleId: null,
+    };
   }
 
   changeStyle = () => {
@@ -24,19 +24,19 @@ class DevApp extends React.Component {
 
     this.setState({
       productId: Math.ceil(Math.random() * 100),
-      styleId: '00' + newStyleId
-    })
+      styleId: `00${newStyleId}`,
+    });
   }
 
   render() {
     return (
-      <div style={{maxWidth: "984px"}}>
+      <div style={{ maxWidth: '984px' }}>
         <h1>Hugo's Photo Gallery</h1>
         <button onClick={this.changeStyle}>Change style</button>
         <h3>Gallery:</h3>
         <App productId={this.state.productId} styleId={this.state.styleId} />
       </div>
-    )
+    );
   }
 }
 

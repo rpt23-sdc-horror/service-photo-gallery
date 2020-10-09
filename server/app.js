@@ -32,4 +32,9 @@ app.get('/photos/:productid/:styleid', async (req, res) => {
   }
 });
 
+// dev endpoint for single photo gallery component
+app.get('*', async (req, res) => {
+  res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
 module.exports = app;

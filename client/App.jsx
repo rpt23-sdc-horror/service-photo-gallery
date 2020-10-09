@@ -1,6 +1,7 @@
 import React from 'react';
 import PhotoCard from './components/PhotoCard.jsx';
 import PhotoModal from './components/PhotoModal.jsx';
+import PhotoCarousel from './components/PhotoCarousel.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,11 +14,11 @@ class App extends React.Component {
   }
 
   // The productId and the currently selected styleId should be passed down through props
-  componentDidUpdate(prevProps) {
-    if (this.props.styleId !== prevProps.styleId) {
-      console.log('styleId changed! New ID: ', this.props.styleId);
-      this.fetchPhotosByStyle(this.props.productId, this.props.styleId);
-    }
+  componentDidMount() {
+    const { pathname } = window.location;
+    const productId = pathname[1];
+    const styleId = pathname.slice(3, 6);
+    this.fetchPhotosByStyle(productId, styleId);
   }
 
   fetchPhotosByStyle = async (productId, styleId) => {
@@ -45,14 +46,29 @@ class App extends React.Component {
   }
 
   render() {
-    const photosList = this.state.photos.map((photo, index) => <PhotoCard url={photo} key={index} index={index} clickPhotoOpen={this.clickPhotoOpen} />);
+    const photosList = this.state.photos.map((photo, index) => (
+      <PhotoCard
+        url={photo}
+        key={index}
+        index={index}
+        clickPhotoOpen={this.clickPhotoOpen}
+      />
+    ));
+
+    const { modalShow, photos, modalScroll } = this.state;
 
     return (
       <div id="photo-gallery">
-        <PhotoModal show={this.state.modalShow} photos={this.state.photos} scroll={this.state.modalScroll} hide={this.hideModal} />
+        <PhotoModal
+          show={modalShow}
+          photos={photos}
+          scroll={modalScroll}
+          hide={this.hideModal}
+        />
         <div id="gallery">
           {photosList}
         </div>
+        <PhotoCarousel photos={photos} />
       </div>
     );
   }

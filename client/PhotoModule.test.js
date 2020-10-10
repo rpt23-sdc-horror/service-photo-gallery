@@ -1,7 +1,7 @@
 import React from 'react';
-import PhotosModule from './PhotosModule.jsx';
+import PhotoModule from './PhotoModule.jsx';
 
-const app = mount(<PhotosModule />);
+const app = mount(<PhotoModule />);
 
 const photos = [
   'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg',
@@ -26,7 +26,7 @@ describe('Component rendering (default 1024px width)', () => {
   it('should render Photo component and sub-components', () => {
     expect(app).toExist();
     expect(app).toContainMatchingElement('#gallery');
-    expect(app).toContainMatchingElement('#photo-modal');
+    expect(app).toContainMatchingElement('#gallery-modal');
   });
 
   it('should render empty gallery view by default', () => {
@@ -34,8 +34,8 @@ describe('Component rendering (default 1024px width)', () => {
     expect(gallery.children()).toHaveLength(0);
   });
 
-  it('should hide photo modal by default', () => {
-    expect(app.find('#photo-modal')).toHaveClassName('hidden');
+  it('should hide gallery modal by default', () => {
+    expect(app.find('#gallery-modal')).toHaveClassName('hidden');
   });
 });
 
@@ -51,7 +51,9 @@ describe('Responsive Breakpoints', () => {
     global.dispatchEvent(new Event('resize'));
     app.update();
     expect(app.find('#gallery')).toExist();
-    expect(app.find('#photo-carousel')).not.toExist();
+    expect(app.find('#gallery-modal')).toExist();
+    expect(app.find('#carousel')).not.toExist();
+    expect(app.find('#carousel-modal')).not.toExist();
   });
 
   it('should render carousel view at width < 640px', () => {
@@ -59,7 +61,9 @@ describe('Responsive Breakpoints', () => {
     global.dispatchEvent(new Event('resize'));
     app.update();
     expect(app.find('#gallery')).not.toExist();
-    expect(app.find('#photo-carousel')).toExist();
+    expect(app.find('#gallery-modal')).not.toExist();
+    expect(app.find('#carousel')).toExist();
+    expect(app.find('#carousel-modal')).toExist();
   });
 });
 

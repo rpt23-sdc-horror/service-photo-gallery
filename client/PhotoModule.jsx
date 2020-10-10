@@ -3,7 +3,7 @@ import React from 'react';
 import Gallery from './components/Gallery.jsx';
 import Carousel from './components/Carousel.jsx';
 
-class PhotosModule extends React.Component {
+class PhotoModule extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -51,4 +51,4 @@ class PhotosModule extends React.Component {
   }
 }
 
-export default PhotosModule;
+export default PhotoModule;

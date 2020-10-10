@@ -69,7 +69,7 @@ class Carousel extends React.Component {
           photo={selectedPhoto}
           clickHideModal={this.clickHideModal}
         />
-        <div id="photo-carousel">
+        <div id="carousel">
           <button type="button" className="prev-btn" onClick={this.prevSlide}>&#10094;</button>
           <button type="button" className="next-btn" onClick={this.nextSlide}>&#10095;</button>
           <div id="slider">

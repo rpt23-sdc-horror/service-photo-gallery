@@ -23,7 +23,7 @@
   object-fit: cover;
 }
 
-#photo-modal {
+.modal {
   display: none;
   position: absolute;
   top: 0;
@@ -34,17 +34,17 @@
   z-index: 2;
 }
 
-#photo-modal.active {
+.modal.active {
   display: block;
 }
 
-#photo-modal .photo-card {
+.modal .photo-card {
   margin-left: 8px;
   margin-right: 8px;
   margin-bottom: 8px;
 }
 
-#close-btn {
+.close-btn {
   cursor: pointer;
   position: fixed;
   top: 0px;
@@ -56,24 +56,24 @@
   font-size: 2rem;
 }
 
-#close-btn:focus {
+.close-btn:focus {
   outline: none;
 }
 
-#photo-carousel {
+#carousel {
   position: relative;
 }
 
-#photo-carousel .photo-card {
+#carousel .photo-card {
   display: none;
   padding-bottom: 0%;
 }
 
-#photo-carousel .photo-card.active {
+#carousel .photo-card.active {
   display: block;
 }
 
-#photo-carousel img {
+#carousel img {
   position: relative;
   object-fit: contain;
 }

@@ -9,8 +9,8 @@ class CarouselModal extends React.Component {
   render() {
     const { photo, active, clickHideModal } = this.props;
     return (
-      <div id="photo-modal" className={active ? 'active' : 'hidden'}>
-        <button type="button" id="close-btn" onClick={clickHideModal}>x</button>
+      <div id="carousel-modal" className={`modal ${active ? 'active' : 'hidden'}`}>
+        <button type="button" className="close-btn" onClick={clickHideModal}>x</button>
         <Card url={photo} />
       </div>
     );

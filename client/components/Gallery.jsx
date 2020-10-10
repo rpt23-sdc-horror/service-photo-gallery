@@ -9,52 +9,52 @@ class Gallery extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false,
+      modalActive: false,
       scrollModal: 0,
     };
   }
 
-  showModal = (e) => {
+  clickShowModal = (e) => {
     const photoIndex = +e.target.dataset.index;
     const modalPhotoHeight = window.innerWidth * 1.25 + 8;
     this.setState({
-      showModal: true,
+      modalActive: true,
       scrollModal: modalPhotoHeight * photoIndex,
     });
   }
 
-  hideModal = () => {
+  clickHideModal = () => {
     this.setState({
-      showModal: false,
+      modalActive: false,
       scrollModal: 0,
     });
   }
 
-  generateCards() {
+  generateGalleryCards() {
     const { photos } = this.props;
     return photos.map((photo, index) => (
       <Card
         url={photo}
         key={index}
         index={index}
-        clickShow={this.showModal}
+        clickShowModal={this.clickShowModal}
       />
     ));
   }
 
   render() {
-    const { showModal, scrollModal } = this.state;
+    const { modalActive, scrollModal } = this.state;
     const { photos } = this.props;
     return (
       <>
         <GalleryModal
           photos={photos}
-          show={showModal}
+          active={modalActive}
           scroll={scrollModal}
-          clickHide={this.hideModal}
+          clickHideModal={this.clickHideModal}
         />
         <div id="gallery">
-          {this.generateCards()}
+          {this.generateGalleryCards()}
         </div>
       </>
     );

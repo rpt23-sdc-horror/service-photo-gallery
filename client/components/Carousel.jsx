@@ -3,74 +3,77 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card.jsx';
-import GalleryModal from './GalleryModal.jsx';
+import CarouselModal from './CarouselModal.jsx';
 
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modalShow: false,
-      modalScroll: 0,
-      currentIndex: 0,
+      showModal: false,
+      selectedIndex: 0,
     };
   }
 
   prevSlide = () => {
-    const { currentIndex } = this.state;
-    const newIndex = currentIndex > 0 ? currentIndex - 1 : 0;
+    const { selectedIndex } = this.state;
+    const newIndex = selectedIndex > 0 ? selectedIndex - 1 : 0;
     this.setState({
-      currentIndex: newIndex,
+      selectedIndex: newIndex,
     });
   }
 
   nextSlide = () => {
-    const { currentIndex } = this.state;
+    const { selectedIndex } = this.state;
     const { photos } = this.props;
-    const newIndex = currentIndex < photos.length - 1 ? currentIndex + 1 : photos.length - 1;
+    const newIndex = selectedIndex < photos.length - 1 ? selectedIndex + 1 : photos.length - 1;
     this.setState({
-      currentIndex: newIndex,
+      selectedIndex: newIndex,
     });
   }
 
-  clickPhotoOpen = () => {
+  showModal = () => {
     this.setState({
-      modalShow: true,
+      showModal: true,
     });
   }
 
   hideModal = () => {
     this.setState({
-      modalShow: false,
+      showModal: false,
     });
   }
 
-  render() {
-    const { currentIndex, modalShow, modalScroll } = this.state;
+  generateSliderCards() {
     const { photos } = this.props;
-
-    const photosList = photos.map((photo, index) => (
+    const { selectedIndex } = this.state;
+    return photos.map((photo, index) => (
       <Card
         url={photo}
         key={index}
-        activeIndex={currentIndex}
         index={index}
+        active={index === selectedIndex}
         clickPhotoOpen={this.clickPhotoOpen}
       />
     ));
+  }
+
+  render() {
+    const { photos } = this.props;
+    const { selectedIndex, showModal } = this.state;
+    const selectedPhoto = photos[selectedIndex];
 
     return (
       <>
-        <GalleryModal
-          show={modalShow}
-          photos={[photos[currentIndex]]}
-          scroll={modalScroll}
-          hide={this.hideModal}
+        <CarouselModal
+          active={showModal}
+          photo={selectedPhoto}
+          clickHide={this.hideModal}
         />
         <div id="photo-carousel">
           <button type="button" className="prev-btn" onClick={this.prevSlide}>&#10094;</button>
           <button type="button" className="next-btn" onClick={this.nextSlide}>&#10095;</button>
           <div id="slider">
-            {photosList}
+            {this.generateSliderCards()}
           </div>
         </div>
       </>

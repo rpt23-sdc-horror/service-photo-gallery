@@ -13,7 +13,7 @@ class GalleryModal extends React.Component {
     });
   }
 
-  generateCards() {
+  generateModalCards() {
     const { photos } = this.props;
     return photos.map(
       (photo, index) => <Card url={photo} key={index} index={index} />,
@@ -21,11 +21,11 @@ class GalleryModal extends React.Component {
   }
 
   render() {
-    const { show, clickHide } = this.props;
+    const { active, clickHideModal } = this.props;
     return (
-      <div id="photo-modal" className={show ? 'active' : 'hidden'}>
-        <button type="button" id="close-btn" onClick={clickHide}>x</button>
-        {this.generateCards()}
+      <div id="photo-modal" className={active ? 'active' : 'hidden'}>
+        <button type="button" id="close-btn" onClick={clickHideModal}>x</button>
+        {this.generateModalCards()}
       </div>
     );
   }
@@ -33,14 +33,14 @@ class GalleryModal extends React.Component {
 
 GalleryModal.propTypes = {
   scroll: PropTypes.number.isRequired,
-  show: PropTypes.bool.isRequired,
-  clickHide: PropTypes.func,
+  active: PropTypes.bool.isRequired,
+  clickHideModal: PropTypes.func,
   photos: PropTypes.arrayOf(PropTypes.string),
 };
 
 GalleryModal.defaultProps = {
   photos: [],
-  clickHide: () => {},
+  clickHideModal: () => {},
 };
 
 export default GalleryModal;

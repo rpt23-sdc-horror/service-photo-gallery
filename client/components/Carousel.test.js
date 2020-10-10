@@ -1,7 +1,7 @@
 import React from 'react';
-import PhotoCarousel from './PhotoCarousel.jsx';
+import Carousel from './Carousel.jsx';
 
-const carousel = mount(<PhotoCarousel />);
+const carousel = mount(<Carousel />);
 
 const photos = [
   'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg',

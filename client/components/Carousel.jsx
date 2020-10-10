@@ -9,7 +9,7 @@ class Carousel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showModal: false,
+      modalActive: false,
       selectedIndex: 0,
     };
   }
@@ -31,15 +31,15 @@ class Carousel extends React.Component {
     });
   }
 
-  showModal = () => {
+  clickShowModal = () => {
     this.setState({
-      showModal: true,
+      modalActive: true,
     });
   }
 
-  hideModal = () => {
+  clickHideModal = () => {
     this.setState({
-      showModal: false,
+      modalActive: false,
     });
   }
 
@@ -52,22 +52,22 @@ class Carousel extends React.Component {
         key={index}
         index={index}
         active={index === selectedIndex}
-        clickPhotoOpen={this.clickPhotoOpen}
+        clickShowModal={this.clickShowModal}
       />
     ));
   }
 
   render() {
     const { photos } = this.props;
-    const { selectedIndex, showModal } = this.state;
+    const { selectedIndex, modalActive } = this.state;
     const selectedPhoto = photos[selectedIndex];
 
     return (
       <>
         <CarouselModal
-          active={showModal}
+          active={modalActive}
           photo={selectedPhoto}
-          clickHide={this.hideModal}
+          clickHideModal={this.clickHideModal}
         />
         <div id="photo-carousel">
           <button type="button" className="prev-btn" onClick={this.prevSlide}>&#10094;</button>

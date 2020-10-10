@@ -7,10 +7,10 @@ import Card from './Card.jsx';
 // eslint-disable-next-line react/prefer-stateless-function -- refactor later
 class CarouselModal extends React.Component {
   render() {
-    const { photo, active, clickHide } = this.props;
+    const { photo, active, clickHideModal } = this.props;
     return (
       <div id="photo-modal" className={active ? 'active' : 'hidden'}>
-        <button type="button" id="close-btn" onClick={clickHide}>x</button>
+        <button type="button" id="close-btn" onClick={clickHideModal}>x</button>
         <Card url={photo} />
       </div>
     );
@@ -19,13 +19,13 @@ class CarouselModal extends React.Component {
 
 CarouselModal.propTypes = {
   active: PropTypes.bool.isRequired,
-  clickHide: PropTypes.func,
+  clickHideModal: PropTypes.func,
   photo: PropTypes.string,
 };
 
 CarouselModal.defaultProps = {
   photo: '',
-  clickHide: () => {},
+  clickHideModal: () => {},
 };
 
 export default CarouselModal;

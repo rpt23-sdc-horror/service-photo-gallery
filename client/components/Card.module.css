@@ -18,6 +18,7 @@
 
 .slider {
   display: none;
+  padding-bottom: 0%;
 }
 
 .slider.active {

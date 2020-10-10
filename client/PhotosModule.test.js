@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './Component.jsx';
+import App from './PhotosModule.jsx';
 
 const app = mount(<App />);
 

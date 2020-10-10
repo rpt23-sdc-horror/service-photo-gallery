@@ -8,7 +8,7 @@ class PhotoModule extends React.Component {
     super(props);
     this.state = {
       photos: [],
-      showCarousel: window.innerWidth < 640 === true,
+      showCarousel: window.innerWidth < 1024 === true,
     };
   }
 
@@ -25,7 +25,7 @@ class PhotoModule extends React.Component {
   }
 
   handleResize = () => {
-    const showCarousel = window.innerWidth < 640 === true;
+    const showCarousel = window.innerWidth < 1024 === true;
     this.setState({
       showCarousel,
     });

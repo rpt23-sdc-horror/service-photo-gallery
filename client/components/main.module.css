@@ -51,7 +51,7 @@
 .prevBtn, .nextBtn {
   cursor: pointer;
   position: absolute;
-  top: 50%;
+  top: 15%;
   width: auto;
   color: #9b9b9b;
   font-weight: bold;

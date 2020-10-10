@@ -1,0 +1,25 @@
+.card {
+  margin-left: 8px;
+  margin-right: 4px;
+  padding-bottom: 125%;
+  position: relative;
+  margin-bottom: 12px;
+}
+
+/* the image width is 80% of the height*/
+.card img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  color: white;
+  object-fit: cover;
+}
+
+.slider {
+  display: none;
+}
+
+.slider.active {
+  display: block;
+}

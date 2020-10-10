@@ -51,6 +51,7 @@ class Carousel extends React.Component {
         url={photo}
         key={index}
         index={index}
+        slider
         active={index === selectedIndex}
         clickShowModal={this.clickShowModal}
       />

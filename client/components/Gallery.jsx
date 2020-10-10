@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Card from './Card.jsx';
 import GalleryModal from './GalleryModal.jsx';
 
+import styles from './Gallery.module.css';
+
 class Gallery extends React.Component {
   constructor(props) {
     super(props);
@@ -53,7 +55,7 @@ class Gallery extends React.Component {
           scroll={modalScroll}
           clickHideModal={this.clickHideModal}
         />
-        <div id="gallery">
+        <div className={styles.gallery}>
           {this.generateGalleryCards()}
         </div>
       </>

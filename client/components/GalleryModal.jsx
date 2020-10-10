@@ -13,15 +13,19 @@ class GalleryModal extends React.Component {
     });
   }
 
-  render() {
-    const { show, photos, hide } = this.props;
-    const photosList = photos.map(
+  generateCards() {
+    const { photos } = this.props;
+    return photos.map(
       (photo, index) => <Card url={photo} key={index} index={index} />,
     );
+  }
+
+  render() {
+    const { show, clickHide } = this.props;
     return (
       <div id="photo-modal" className={show ? 'active' : 'hidden'}>
-        <button type="button" id="close-btn" onClick={hide}>x</button>
-        {photosList}
+        <button type="button" id="close-btn" onClick={clickHide}>x</button>
+        {this.generateCards()}
       </div>
     );
   }
@@ -30,13 +34,13 @@ class GalleryModal extends React.Component {
 GalleryModal.propTypes = {
   scroll: PropTypes.number.isRequired,
   show: PropTypes.bool.isRequired,
-  hide: PropTypes.func,
+  clickHide: PropTypes.func,
   photos: PropTypes.arrayOf(PropTypes.string),
 };
 
 GalleryModal.defaultProps = {
   photos: [],
-  hide: () => {},
+  clickHide: () => {},
 };
 
 export default GalleryModal;

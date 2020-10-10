@@ -37,7 +37,7 @@ class Gallery extends React.Component {
         url={photo}
         key={index}
         index={index}
-        show={this.showModal}
+        clickShow={this.showModal}
       />
     ));
   }
@@ -51,7 +51,7 @@ class Gallery extends React.Component {
           photos={photos}
           show={showModal}
           scroll={scrollModal}
-          hide={this.hideModal}
+          clickHide={this.hideModal}
         />
         <div id="gallery">
           {this.generateCards()}

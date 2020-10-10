@@ -10,7 +10,7 @@ class Gallery extends React.Component {
     super(props);
     this.state = {
       modalActive: false,
-      scrollModal: 0,
+      modalScroll: 0,
     };
   }
 
@@ -19,14 +19,14 @@ class Gallery extends React.Component {
     const modalPhotoHeight = window.innerWidth * 1.25 + 8;
     this.setState({
       modalActive: true,
-      scrollModal: modalPhotoHeight * photoIndex,
+      modalScroll: modalPhotoHeight * photoIndex,
     });
   }
 
   clickHideModal = () => {
     this.setState({
       modalActive: false,
-      scrollModal: 0,
+      modalScroll: 0,
     });
   }
 
@@ -43,14 +43,14 @@ class Gallery extends React.Component {
   }
 
   render() {
-    const { modalActive, scrollModal } = this.state;
+    const { modalActive, modalScroll } = this.state;
     const { photos } = this.props;
     return (
       <>
         <GalleryModal
           photos={photos}
           active={modalActive}
-          scroll={scrollModal}
+          scroll={modalScroll}
           clickHideModal={this.clickHideModal}
         />
         <div id="gallery">

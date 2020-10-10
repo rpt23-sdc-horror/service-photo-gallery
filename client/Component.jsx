@@ -1,8 +1,8 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
-import PhotoCard from './components/PhotoCard.jsx';
-import PhotoModal from './components/PhotoModal.jsx';
-import PhotoCarousel from './components/PhotoCarousel.jsx';
+import Card from './components/Card.jsx';
+import GalleryModal from './components/GalleryModal.jsx';
+import Carousel from './components/Carousel.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -64,7 +64,7 @@ class App extends React.Component {
     } = this.state;
 
     const photosList = photos.map((photo, index) => (
-      <PhotoCard
+      <Card
         url={photo}
         key={index}
         index={index}
@@ -74,14 +74,14 @@ class App extends React.Component {
 
     return (
       <>
-        <PhotoModal
+        <GalleryModal
           show={modalShow}
           photos={photos}
           scroll={modalScroll}
           hide={this.hideModal}
         />
         {carouselShow
-          ? <PhotoCarousel photos={photos} />
+          ? <Carousel photos={photos} />
           : (
             <div id="gallery">
               {photosList}

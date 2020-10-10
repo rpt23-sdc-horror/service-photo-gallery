@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './App.jsx';
+import App from './Component.jsx';
 
 const app = mount(<App />);
 

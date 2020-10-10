@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 // possibly refactor later to split up the "gallery photo card" and the "slider card"
 
-const PhotoCard = ({
+const Card = ({
   url, index, activeIndex, clickPhotoOpen,
 }) => {
   const showCard = activeIndex === index ? 'showing' : '';
@@ -14,17 +14,17 @@ const PhotoCard = ({
   );
 };
 
-PhotoCard.propTypes = {
+Card.propTypes = {
   url: PropTypes.string,
   index: PropTypes.number.isRequired,
   activeIndex: PropTypes.number,
   clickPhotoOpen: PropTypes.func,
 };
 
-PhotoCard.defaultProps = {
+Card.defaultProps = {
   url: '',
-  activeIndex: 0,
+  activeIndex: null,
   clickPhotoOpen: () => {},
 };
 
-export default PhotoCard;
+export default Card;

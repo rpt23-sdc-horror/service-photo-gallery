@@ -2,9 +2,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import PhotoCard from './PhotoCard.jsx';
+import Card from './Card.jsx';
 
-class PhotoModal extends React.Component {
+class GalleryModal extends React.Component {
   componentDidUpdate() {
     const { scroll } = this.props;
     window.scrollTo({
@@ -16,7 +16,7 @@ class PhotoModal extends React.Component {
   render() {
     const { show, photos, hide } = this.props;
     const photosList = photos.map(
-      (photo, index) => <PhotoCard url={photo} key={index} index={index} />,
+      (photo, index) => <Card url={photo} key={index} index={index} />,
     );
     return (
       <div id="photo-modal" className={show ? 'active' : 'hidden'}>
@@ -27,16 +27,16 @@ class PhotoModal extends React.Component {
   }
 }
 
-PhotoModal.propTypes = {
+GalleryModal.propTypes = {
   scroll: PropTypes.number.isRequired,
   show: PropTypes.bool.isRequired,
   hide: PropTypes.func,
   photos: PropTypes.arrayOf(PropTypes.string),
 };
 
-PhotoModal.defaultProps = {
+GalleryModal.defaultProps = {
   photos: [],
   hide: () => {},
 };
 
-export default PhotoModal;
+export default GalleryModal;

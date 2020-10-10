@@ -2,10 +2,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import PhotoCard from './PhotoCard.jsx';
-import PhotoModal from './PhotoModal.jsx';
+import Card from './Card.jsx';
+import GalleryModal from './GalleryModal.jsx';
 
-class PhotoCarousel extends React.Component {
+class Carousel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,7 +49,7 @@ class PhotoCarousel extends React.Component {
     const { photos } = this.props;
 
     const photosList = photos.map((photo, index) => (
-      <PhotoCard
+      <Card
         url={photo}
         key={index}
         activeIndex={currentIndex}
@@ -60,7 +60,7 @@ class PhotoCarousel extends React.Component {
 
     return (
       <>
-        <PhotoModal
+        <GalleryModal
           show={modalShow}
           photos={[photos[currentIndex]]}
           scroll={modalScroll}
@@ -78,12 +78,12 @@ class PhotoCarousel extends React.Component {
   }
 }
 
-PhotoCarousel.propTypes = {
+Carousel.propTypes = {
   photos: PropTypes.arrayOf(PropTypes.string),
 };
 
-PhotoCarousel.defaultProps = {
+Carousel.defaultProps = {
   photos: [],
 };
 
-export default PhotoCarousel;
+export default Carousel;

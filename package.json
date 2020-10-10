@@ -27,6 +27,7 @@
     "jest-environment-enzyme": "^7.1.2",
     "jest-enzyme": "^7.1.2",
     "mongoose": "^5.10.7",
+    "morgan": "^1.10.0",
     "node-fetch": "^2.6.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

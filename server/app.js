@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
-
-const app = express();
+const morgan = require('morgan');
 
 const photoDB = require('../database/index.js');
 
+const app = express();
+
+app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../public')));
 
 // get all main photos (regular and thumbnail) for all styles by product ID

@@ -32,7 +32,7 @@ class PhotoModule extends React.Component {
   };
 
   fetchPhotosByStyle = async (productId, styleId) => {
-    const response = await fetch(`/photos/${productId}/${styleId}`);
+    const response = await fetch(`http://localhost:3000/photos/${productId}/${styleId}`);
     const data = await response.json();
     this.setState({
       photos: data,

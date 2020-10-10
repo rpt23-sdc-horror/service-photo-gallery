@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Card from './Card.jsx';
 import GalleryModal from './GalleryModal.jsx';
 
-import styles from './Gallery.module.css';
+import styles from './main.module.css';
 
 class Gallery extends React.Component {
   constructor(props) {

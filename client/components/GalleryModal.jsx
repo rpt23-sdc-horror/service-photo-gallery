@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card.jsx';
 
-import styles from './Gallery.module.css';
+import styles from './main.module.css';
 
 class GalleryModal extends React.Component {
   componentDidUpdate() {

@@ -16,7 +16,7 @@ const photos = [
 const gallery = mount(<Gallery />);
 
 beforeEach(() => {
-  // clear component state
+  // clear component state and set props
   gallery.unmount();
   gallery.mount();
   gallery.setProps({

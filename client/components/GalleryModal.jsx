@@ -4,6 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card.jsx';
 
+import styles from './Gallery.module.css';
+
 class GalleryModal extends React.Component {
   componentDidUpdate() {
     const { scroll } = this.props;
@@ -23,8 +25,8 @@ class GalleryModal extends React.Component {
   render() {
     const { active, clickHideModal } = this.props;
     return (
-      <div id="gallery-modal" className={`modal ${active ? 'active' : 'hidden'}`}>
-        <button type="button" className="close-btn" onClick={clickHideModal}>x</button>
+      <div id="gallery-modal" className={`${styles.modal} ${active ? styles.active : ''}`}>
+        <button type="button" className={styles.closeBtn} onClick={clickHideModal}>x</button>
         {this.generateModalCards()}
       </div>
     );

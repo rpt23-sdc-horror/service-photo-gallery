@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import 'core-js/stable';
 
 import './index.css';
-import App from './App.jsx';
+import PhotoModule from './PhotoModule.jsx';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <PhotoModule />
   </React.StrictMode>,
-  document.getElementById('photo-gallery'),
+  document.getElementById('photo-module'),
 );

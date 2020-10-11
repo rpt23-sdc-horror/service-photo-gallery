@@ -33,6 +33,8 @@ class Carousel extends React.Component {
     });
   }
 
+  // Anabell refactoring suggestion: Maybe toggleModal will further simplify this.
+
   clickShowModal = () => {
     this.setState({
       modalActive: true,

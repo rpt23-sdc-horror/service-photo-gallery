@@ -4,13 +4,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card.jsx';
 
+import styles from './main.module.css';
+
 // eslint-disable-next-line react/prefer-stateless-function -- refactor later
 class CarouselModal extends React.Component {
   render() {
     const { photo, active, clickHideModal } = this.props;
     return (
-      <div id="carousel-modal" className={`modal ${active ? 'active' : 'hidden'}`}>
-        <button type="button" className="close-btn" onClick={clickHideModal}>x</button>
+      <div id="carousel-modal" className={`${styles.modal} ${active ? styles.active : ''}`}>
+        <button type="button" className={styles.closeBtn} onClick={clickHideModal}>x</button>
         <Card url={photo} />
       </div>
     );

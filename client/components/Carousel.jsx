@@ -5,6 +5,8 @@ import PropTypes from 'prop-types';
 import Card from './Card.jsx';
 import CarouselModal from './CarouselModal.jsx';
 
+import styles from './main.module.css';
+
 class Carousel extends React.Component {
   constructor(props) {
     super(props);
@@ -51,6 +53,7 @@ class Carousel extends React.Component {
         url={photo}
         key={index}
         index={index}
+        slider
         active={index === selectedIndex}
         clickShowModal={this.clickShowModal}
       />
@@ -69,10 +72,10 @@ class Carousel extends React.Component {
           photo={selectedPhoto}
           clickHideModal={this.clickHideModal}
         />
-        <div id="carousel">
-          <button type="button" className="prev-btn" onClick={this.prevSlide}>&#10094;</button>
-          <button type="button" className="next-btn" onClick={this.nextSlide}>&#10095;</button>
-          <div id="slider">
+        <div className={styles.carousel}>
+          <button type="button" className={styles.prevBtn} onClick={this.prevSlide}>&#10094;</button>
+          <button type="button" className={styles.nextBtn} onClick={this.nextSlide}>&#10095;</button>
+          <div className={styles.slider}>
             {this.generateSliderCards()}
           </div>
         </div>

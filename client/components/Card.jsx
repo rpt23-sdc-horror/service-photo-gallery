@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-// possibly refactor later to split up the "gallery photo card" and the "slider card"
+import styles from './Card.module.css';
 
 const Card = ({
-  url, index, active, clickShowModal,
-}) => (
-  <div className={`photo-card ${active ? 'active' : ''}`} onClick={clickShowModal} role="button">
-    <img src={url} data-index={index} alt="this is a description" />
-  </div>
-);
+  url, index, active, slider, clickShowModal,
+}) => {
+  let sliderStyle = slider ? styles.slider : '';
+  if (active) {
+    sliderStyle += ` ${styles.active}`;
+  }
+  return (
+    <div className={`${styles.card} ${sliderStyle}`} onClick={clickShowModal} role="button">
+      <img src={url} data-index={index} alt="this is a description" />
+    </div>
+  );
+};
 
 Card.propTypes = {
   url: PropTypes.string,
   index: PropTypes.number,
+  slider: PropTypes.bool,
   active: PropTypes.bool,
   clickShowModal: PropTypes.func,
 };
@@ -21,6 +28,7 @@ Card.propTypes = {
 Card.defaultProps = {
   url: '',
   index: 0,
+  slider: false,
   active: false,
   clickShowModal: () => {},
 };

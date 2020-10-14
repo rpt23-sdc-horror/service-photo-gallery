@@ -25,17 +25,17 @@ beforeEach(async () => {
 describe('Component rendering (default 1024px width)', () => {
   it('should render Photo component and sub-components', () => {
     expect(app).toExist();
-    expect(app).toContainMatchingElement('#gallery');
+    expect(app).toContainMatchingElement('.gallery');
     expect(app).toContainMatchingElement('#gallery-modal');
   });
 
   it('should render empty gallery view by default', () => {
-    const gallery = app.find('#gallery');
+    const gallery = app.find('.gallery');
     expect(gallery.children()).toHaveLength(0);
   });
 
   it('should hide gallery modal by default', () => {
-    expect(app.find('#gallery-modal')).toHaveClassName('hidden');
+    expect(app.find('#gallery-modal')).not.toHaveClassName('active');
   });
 });
 
@@ -46,23 +46,23 @@ describe('Responsive Breakpoints', () => {
     });
   });
 
-  it('should render gallery view at width >= 640px', () => {
-    global.innerWidth = 640;
+  it('should render gallery view at width >= 1024px', () => {
+    global.innerWidth = 1024;
     global.dispatchEvent(new Event('resize'));
     app.update();
-    expect(app.find('#gallery')).toExist();
+    expect(app.find('.gallery')).toExist();
     expect(app.find('#gallery-modal')).toExist();
-    expect(app.find('#carousel')).not.toExist();
+    expect(app.find('.carousel')).not.toExist();
     expect(app.find('#carousel-modal')).not.toExist();
   });
 
-  it('should render carousel view at width < 640px', () => {
-    global.innerWidth = 639;
+  it('should render carousel view at width < 1024px', () => {
+    global.innerWidth = 1023;
     global.dispatchEvent(new Event('resize'));
     app.update();
-    expect(app.find('#gallery')).not.toExist();
+    expect(app.find('.gallery')).not.toExist();
     expect(app.find('#gallery-modal')).not.toExist();
-    expect(app.find('#carousel')).toExist();
+    expect(app.find('.carousel')).toExist();
     expect(app.find('#carousel-modal')).toExist();
   });
 });

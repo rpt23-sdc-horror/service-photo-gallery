@@ -2,11 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'core-js/stable';
 
-import PhotoModule from './PhotoModule.jsx';
+import { BrowserRouter as Router } from 'react-router-dom';
+
+import PhotoModuleWithRouter from './PhotoModule.jsx';
 
 ReactDOM.render(
   <React.StrictMode>
-    <PhotoModule />
+    <Router>
+      <PhotoModuleWithRouter />
+    </Router>
   </React.StrictMode>,
   document.getElementById('photo-module'),
 );

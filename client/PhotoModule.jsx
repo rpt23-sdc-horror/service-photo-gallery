@@ -1,5 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import React from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import Gallery from './components/Gallery.jsx';
 import Carousel from './components/Carousel.jsx';
 
@@ -18,6 +20,24 @@ class PhotoModule extends React.Component {
     const styleId = `00${ids[3]}`;
     this.fetchPhotosByStyle(productId, styleId);
     window.addEventListener('resize', this.handleResize);
+
+    // test function to test changing the url
+    // setInterval(() => {
+    //   const productId = Math.ceil(Math.random() * 100);
+    //   const styleId = Math.ceil(Math.random() * 3);
+    //   this.props.history.push(`/shop/${productId}/${styleId}`);
+    // }, 3000);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { location } = this.props;
+    if (location !== prevProps.location) {
+      console.log('url changed:', location);
+      const ids = location.pathname.split('/');
+      const productId = ids[2];
+      const styleId = `00${ids[3]}`;
+      this.fetchPhotosByStyle(productId, styleId);
+    }
   }
 
   componentWillUnmount() {
@@ -51,4 +71,15 @@ class PhotoModule extends React.Component {
   }
 }
 
-export default PhotoModule;
+PhotoModule.propTypes = {
+  location: PropTypes.shape({
+    hash: PropTypes.string,
+    key: PropTypes.string,
+    pathname: PropTypes.string,
+    search: PropTypes.string,
+    // eslint-disable-next-line react/forbid-prop-types
+    state: PropTypes.object,
+  }).isRequired,
+};
+
+export default withRouter(PhotoModule);

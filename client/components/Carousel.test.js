@@ -26,29 +26,29 @@ beforeEach(() => {
 
 describe('Component rendering', () => {
   it('should render photos into photo carousel', () => {
-    const slider = carousel.find('#slider');
+    const slider = carousel.find('.sliderCards');
     expect(slider.children()).toHaveLength(9);
   });
 
   it('should only display one photo', () => {
-    const visibleCard = carousel.find('#slider .photo-card.active');
+    const visibleCard = carousel.find('.sliderCards .card.active');
     expect(visibleCard).toHaveLength(1);
   });
 
   it('should render the first photo by default', () => {
-    const card = carousel.find('#slider .photo-card').at(0);
+    const card = carousel.find('.sliderCards .card').at(0);
     expect(card).toHaveClassName('active');
   });
 });
 
 describe('Previous and next buttons', () => {
   it('should render the next photos upon next btn click', () => {
-    const nextBtn = carousel.find('.next-btn');
+    const nextBtn = carousel.find('.nextBtn');
     nextBtn.simulate('click');
-    let visibleImg = carousel.find('#slider .active > img:first-child');
+    let visibleImg = carousel.find('.sliderCards .active > img:first-child');
     expect(visibleImg.prop('data-index')).toEqual(1);
     nextBtn.simulate('click');
-    visibleImg = carousel.find('#slider .active > img:first-child');
+    visibleImg = carousel.find('.sliderCards .active > img:first-child');
     expect(visibleImg.prop('data-index')).toEqual(2);
   });
 
@@ -56,11 +56,11 @@ describe('Previous and next buttons', () => {
     carousel.setState({
       selectedIndex: 8,
     });
-    let visibleImg = carousel.find('#slider .active > img:first-child');
+    let visibleImg = carousel.find('.sliderCards .active > img:first-child');
     expect(visibleImg.prop('data-index')).toEqual(8);
-    const prevBtn = carousel.find('.prev-btn');
+    const prevBtn = carousel.find('.prevBtn');
     prevBtn.simulate('click');
-    visibleImg = carousel.find('#carousel .active > img:first-child');
+    visibleImg = carousel.find('.carousel .active > img:first-child');
     expect(visibleImg.prop('data-index')).toEqual(7);
   });
 });
@@ -75,8 +75,8 @@ describe('Carousel modal', () => {
   });
 
   it('should open the photo modal when clicking on a carousel img', () => {
-    expect(carousel.find('#carousel-modal')).toHaveClassName('hidden');
-    const card = carousel.find('#slider .photo-card.active');
+    expect(carousel.find('#carousel-modal')).not.toHaveClassName('active');
+    const card = carousel.find('.sliderCards .card.active');
     card.simulate('click');
     expect(carousel.find('#carousel-modal')).toHaveClassName('active');
   });
@@ -86,8 +86,8 @@ describe('Carousel modal', () => {
       modalActive: true,
     });
     expect(carousel.find('#carousel-modal')).toHaveClassName('active');
-    const closeBtn = carousel.find('.close-btn');
+    const closeBtn = carousel.find('.closeBtn');
     closeBtn.simulate('click');
-    expect(carousel.find('#carousel-modal')).toHaveClassName('hidden');
+    expect(carousel.find('#carousel-modal')).not.toHaveClassName('active');
   });
 });

@@ -1,8 +1,6 @@
 import React from 'react';
 import PhotoModule from './PhotoModule.jsx';
 
-// import styles from './components/main.module.css';
-
 const app = mount(<PhotoModule />);
 
 const photos = [

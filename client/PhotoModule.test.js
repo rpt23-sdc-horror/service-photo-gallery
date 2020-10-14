@@ -50,7 +50,6 @@ describe('Responsive Breakpoints', () => {
     global.innerWidth = 1024;
     global.dispatchEvent(new Event('resize'));
     app.update();
-    console.log(app.debug());
     expect(app.find('.gallery')).toExist();
     expect(app.find('#gallery-modal')).toExist();
     expect(app.find('.carousel')).not.toExist();

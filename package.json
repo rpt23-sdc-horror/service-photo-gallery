@@ -25,6 +25,7 @@
     "enzyme-adapter-react-16": "^1.15.5",
     "eslint-plugin-jest": "^24.0.2",
     "express": "^4.17.1",
+    "identity-obj-proxy": "^3.0.0",
     "jest-environment-enzyme": "^7.1.2",
     "jest-enzyme": "^7.1.2",
     "mongoose": "^5.10.7",
@@ -61,7 +62,10 @@
     "setupFilesAfterEnv": [
       "jest-enzyme"
     ],
-    "testEnvironment": "enzyme"
+    "testEnvironment": "enzyme",
+    "moduleNameMapper": {
+      "\\.(css|less)$": "identity-obj-proxy"
+    }
   },
   "snapshotSerializers": [
     "enzyme-to-json/serializer"

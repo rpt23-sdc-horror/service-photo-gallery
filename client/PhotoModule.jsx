@@ -14,8 +14,8 @@ class PhotoModule extends React.Component {
 
   componentDidMount() {
     const ids = window.location.pathname.split('/');
-    const productId = ids[1];
-    const styleId = ids[2];
+    const productId = ids[2];
+    const styleId = `00${ids[3]}`;
     this.fetchPhotosByStyle(productId, styleId);
     window.addEventListener('resize', this.handleResize);
   }

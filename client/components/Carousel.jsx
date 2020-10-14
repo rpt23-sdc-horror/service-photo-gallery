@@ -77,7 +77,7 @@ class Carousel extends React.Component {
         <div className={styles.carousel}>
           <button type="button" className={styles.prevBtn} onClick={this.prevSlide}>&#10094;</button>
           <button type="button" className={styles.nextBtn} onClick={this.nextSlide}>&#10095;</button>
-          <div className={styles.slider}>
+          <div className={styles.sliderCards}>
             {this.generateSliderCards()}
           </div>
         </div>

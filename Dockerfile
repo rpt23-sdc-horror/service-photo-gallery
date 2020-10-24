@@ -1,5 +1,20 @@
-FROM node:10-alpine
+FROM node:15.0.1
+ENV NODE_ENV=production
+
 WORKDIR /app
+
+COPY ["package.json", "package-lock.json*", "./"]
+
+RUN npm install --production
+
 COPY . .
-RUN yarn install --production
-CMD ["node", "/app/src/index.js"]
+
+COPY ["server", "./server"]
+
+COPY ["public", "./public"]
+
+COPY ["database", "./database"]
+
+EXPOSE 3000
+
+CMD npm start

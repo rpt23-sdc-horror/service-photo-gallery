@@ -1,25 +1,12 @@
-version: '3.8'
-
+version: "2"
 services:
- photos:
-   build:
-     context: .
-   ports:
-     - 3000:3000
-   environment:
-     - SERVER_PORT=3000
-     - DATABASE_CONNECTIONSTRING=mongodb://mongo:27017/notes
-   volumes:
-     - ./:/code
-   command: npm run debug
-
- mongo:
-   image: mongo:4.2.8
-   ports:
-     - 27017:27017
-   volumes:
-     - mongodb:/data/db
-     - mongodb_config:/data/configdb
- volumes:
-   mongodb:
-   mongodb_config:
+  web:
+    build: .
+    ports:
+    - "3000:3000"
+    depends_on:
+    - mongo
+  mongo:
+    image: mongo
+    ports:
+    - "27017:27017"

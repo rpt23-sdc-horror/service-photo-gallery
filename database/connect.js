@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// TO DO: this is replaced when deploying via docker...
+// connection string for DOCKER...
 mongoose.connect('mongodb://mongo:27017', {
   useNewUrlParser: true,
   useUnifiedTopology: true,

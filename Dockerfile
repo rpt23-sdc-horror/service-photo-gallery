@@ -15,6 +15,8 @@ COPY ["public", "./public"]
 
 COPY ["database", "./database"]
 
+RUN npm seed-db
+
 EXPOSE 3000
 
 CMD npm start

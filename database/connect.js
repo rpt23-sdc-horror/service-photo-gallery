@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // TO DO: this is replaced when deploying via docker...
-mongoose.connect('mongodb://localhost:27017/photos', {
+mongoose.connect('mongodb://mongo:27017', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,

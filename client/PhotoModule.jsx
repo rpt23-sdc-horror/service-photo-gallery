@@ -5,6 +5,18 @@ import { withRouter } from 'react-router-dom';
 import Gallery from './components/Gallery.jsx';
 import Carousel from './components/Carousel.jsx';
 
+const placeholderData = [
+  'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-001.jpg',
+  'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/98-002.jpg',
+  'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/31-001.jpg',
+  'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/1-003.jpg',
+  'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/72-003.jpg',
+  'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/30-003.jpg',
+  'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/66-002.jpg',
+  'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/85-001.jpg',
+  'https://ultimate-nike.s3.us-west-1.amazonaws.com/photos/main/regular/57-002.jpg',
+];
+
 class PhotoModule extends React.Component {
   constructor(props) {
     super(props);
@@ -52,11 +64,21 @@ class PhotoModule extends React.Component {
   };
 
   fetchPhotosByStyle = async (productId, styleId) => {
-    const response = await fetch(`http://localhost:3000/photos/${productId}/${styleId}`);
-    const data = await response.json();
-    this.setState({
-      photos: data,
-    });
+    try {
+      const response = await fetch(`http://localhost:3000/photos/${productId}/${styleId}`);
+      if (!response.ok) {
+        throw new Error('photo fetch request failed');
+      }
+      const data = await response.json();
+      this.setState({
+        photos: data,
+      });
+    } catch (e) {
+      console.log(e);
+      this.setState({
+        photos: placeholderData,
+      });
+    }
   }
 
   render() {

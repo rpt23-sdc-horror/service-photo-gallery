@@ -5,17 +5,17 @@ WORKDIR /app
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm install --production
+RUN npm install
 
 COPY . .
 
-COPY ["server", "./server"]
+# COPY ["server", "./server"]
 
-COPY ["public", "./public"]
+# COPY ["public", "./public"]
 
-COPY ["database", "./database"]
+# COPY ["database", "./database"]
 
-RUN npm seed-db
+RUN npm run seed-db
 
 EXPOSE 3000
 

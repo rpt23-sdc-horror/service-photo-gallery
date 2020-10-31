@@ -74,7 +74,6 @@ class PhotoModule extends React.Component {
         photos: data,
       });
     } catch (e) {
-      console.log(e);
       this.setState({
         photos: placeholderData,
       });

@@ -39,7 +39,7 @@
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.7",
-    "supertest": "^5.0.0",
+    "supertest": "^5.0.0"
   },
   "devDependencies": {
     "aws-sdk": "^2.778.0",

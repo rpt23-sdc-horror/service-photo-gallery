@@ -1,7 +1,7 @@
 version: "2"
 services:
   web:
-    image: photo-gallery
+    image: hugoxiong/photo-gallery
     ports:
     - "80:3000"
     depends_on:
@@ -9,7 +9,7 @@ services:
     volumes:
       - .:/code
   mongo:
-    image: mongo
+    image: hugoxiong/mongo
     ports:
     - "27017:27017"
     volumes:

@@ -15,7 +15,7 @@ COPY . .
 
 # COPY ["database", "./database"]
 
-RUN npm run seed-db
+# RUN npm run seed-db
 
 EXPOSE 3000
 

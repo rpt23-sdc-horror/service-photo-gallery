@@ -5,6 +5,7 @@ const data = require('./seed-data.json');
 (async () => {
   try {
     await seed.seedDatabase(db, data);
+    console.log('Database seeded with photo urls!');
     await db.close();
     console.log(`Connection to ${db.name} DB closed!`);
   } catch (err) {

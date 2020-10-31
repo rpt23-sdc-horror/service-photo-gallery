@@ -65,7 +65,7 @@ class PhotoModule extends React.Component {
 
   fetchPhotosByStyle = async (productId, styleId) => {
     try {
-      const response = await fetch(`http://localhost:3000/photos/${productId}/${styleId}`);
+      const response = await fetch(`http://13.56.180.105/photos/${productId}/${styleId}`);
       if (!response.ok) {
         throw new Error('photo fetch request failed');
       }
@@ -74,7 +74,6 @@ class PhotoModule extends React.Component {
         photos: data,
       });
     } catch (e) {
-      console.log(e);
       this.setState({
         photos: placeholderData,
       });

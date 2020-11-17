@@ -63,9 +63,7 @@
     "webpack-cli": "^3.3.12"
   },
   "jest": {
-    "setupFilesAfterEnv": [
-      "jest-enzyme"
-    ],
+    "setupFilesAfterEnv": ["<rootDir>/setupTests.js"],
     "testEnvironment": "enzyme",
     "moduleNameMapper": {
       "\\.(css|less)$": "identity-obj-proxy"

@@ -104,5 +104,3 @@ const instagramSchema = new mongoose.Schema({
 });
 
 const Instagram = mongoose.model("Instagram", instagramSchema);
-
-

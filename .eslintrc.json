@@ -23,6 +23,7 @@
     "no-console": "off",
     "no-restricted-syntax": "off",
     "import/extensions": ["error", "always", {"ignorePackages": true} ],
+    "linebreak-style": ["error", "windows"],
     "react/destructuring-assignment": ["warn", "always", { "ignoreClassFields": true }],
     "react/jsx-filename-extension": "off",
     "jsx-a11y/interactive-supports-focus": "off",

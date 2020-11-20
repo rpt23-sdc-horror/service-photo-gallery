@@ -1,5 +1,3 @@
-// The 'database' is the Mongoose connection instance, it must be passed into the function
-
 const Photo = require('./PhotoModel.js');
 
 const getPhotosByProductId = async (productId) => {
@@ -30,7 +28,6 @@ const addDocument = async (item) => {
   const photo = new Photo(item);
 
   await photo.save();
-  // console.log(`Document '${item.product_id}-${item.style_id}' saved!`);
 };
 
 module.exports = {

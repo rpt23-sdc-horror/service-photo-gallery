@@ -50,7 +50,8 @@ app.post('/photos', async (req, res) => {
       other_photos: req.body.other_photos,
     };
 
-    photoDB.createPhoto(createDocument);
+    await photoDB.createPhoto(createDocument);
+
     res.status(201).send('Resource Created Successfully');
   } catch (err) {
     res.status(500).send('Internal Server Error.');

@@ -9,13 +9,13 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "client-dev": "webpack -d --watch",
-    "server-dev": "nodemon server/index.js",
     "build": "webpack -p",
+    "build:watch": "webpack -d --watch",
+    "db:seed": "node database/seed/seed-db.js",
     "start": "node server/index.js",
+    "start:watch": "nodemon server/index.js",
     "test": "jest --coverage",
-    "test:watch": "jest --watch --coverage",
-    "seed-db": "node database/seed/seed-db.js"
+    "test:watch": "jest --watch --coverage"
   },
   "dependencies": {
     "@babel/plugin-transform-runtime": "^7.12.1",
@@ -42,10 +42,10 @@
     "supertest": "^5.0.0"
   },
   "devDependencies": {
-    "aws-sdk": "^2.778.0",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
+    "aws-sdk": "^2.778.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.1",
     "babel-loader": "^8.1.0",
@@ -63,7 +63,9 @@
     "webpack-cli": "^3.3.12"
   },
   "jest": {
-    "setupFilesAfterEnv": ["<rootDir>/setupTests.js"],
+    "setupFilesAfterEnv": [
+      "<rootDir>/setupTests.js"
+    ],
     "testEnvironment": "enzyme",
     "moduleNameMapper": {
       "\\.(css|less)$": "identity-obj-proxy"

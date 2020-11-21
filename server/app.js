@@ -17,6 +17,11 @@ app.get('/photos/:productid', async (req, res) => {
     const productId = Number(req.params.productid);
     const photos = await photoDB.getPhotosByProductId(productId);
 
+    if (photos.length === 0) {
+      res.status(404).send('Photo Information Not Found');
+      return;
+    }
+
     res.json(photos);
   } catch (err) {
     console.log(err);
@@ -29,6 +34,11 @@ app.get('/photos/:productid/:styleid', async (req, res) => {
     const productId = Number(req.params.productid);
     const styleId = req.params.styleid;
     const photos = await photoDB.getPhotosByStyleId(productId, styleId);
+
+    if (photos === null) {
+      res.status(404).send('Photo Information Not Found');
+      return;
+    }
 
     res.json(photos);
   } catch (err) {

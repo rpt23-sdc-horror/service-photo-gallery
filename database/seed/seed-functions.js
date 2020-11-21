@@ -1,6 +1,4 @@
-const { addDocument } = require('../index.js');
-
-// The 'database' is the Mongoose connection instance
+const { createPhoto } = require('../index.js');
 
 const resetDatabase = async (database) => {
   await database.dropDatabase();
@@ -12,7 +10,7 @@ const seedDatabase = async (database, data) => {
     await resetDatabase(database);
     /* eslint-disable no-await-in-loop */
     for (const item of data) {
-      await addDocument(item);
+      await createPhoto(item);
     }
   } catch (err) {
     throw new Error(err);

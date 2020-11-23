@@ -6,7 +6,7 @@ const maxProducts = 1000;
 const maxStyles = 3;
 const maxOthers = 8;
 
-(async function loop() {
+(async function seedS3Bucket() {
   try {
     for (let productId = 1; productId <= maxProducts; productId += 1) {
       for (let styleId = 1; styleId <= maxStyles; styleId += 1) {

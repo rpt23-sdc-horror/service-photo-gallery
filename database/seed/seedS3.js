@@ -1,34 +1,13 @@
 /* eslint-disable no-await-in-loop */
-// eslint-disable-next-line import/no-extraneous-dependencies
-const AWS = require('aws-sdk');
-const fetch = require('node-fetch');
+const { uploadRandomImage } = require('../../utils/s3bucket');
 const { rng } = require('../../utils/math');
-
-require('dotenv').config();
-
-const s3 = new AWS.S3();
-
-const uploadToS3Bucket = async (productId, buffer, path) => s3.upload({
-  Bucket: process.env.AWS_S3_BUCKET,
-  Key: `products/${path}`,
-  Body: buffer,
-  ContentType: 'image/jpg',
-  ACL: 'public-read',
-}).promise();
-
-const uploadRandomImage = async (productId, styleId, randomImageId, width, height, fileName) => {
-  const buffer = await fetch(`https://picsum.photos/seed/${randomImageId}/${width}/${height}`);
-  const bufferPath = `id-${productId}/style-${styleId}/${fileName}.jpg`;
-
-  return uploadToS3Bucket(productId, buffer.body, bufferPath);
-};
 
 const maxProducts = 1000;
 const maxStyles = 3;
 const maxOthers = 8;
 
-try {
-  (async function loop() {
+(async function loop() {
+  try {
     for (let productId = 1; productId <= maxProducts; productId += 1) {
       for (let styleId = 1; styleId <= maxStyles; styleId += 1) {
         const randomImageId = rng(1, 1000000);
@@ -45,8 +24,8 @@ try {
     }
     console.log('Successfully Uploaded Images to S3');
     process.exit(0);
-  }());
-} catch (err) {
-  console.log(`Error Uploading Images\n${err}`);
-  process.exit(1);
-}
+  } catch (err) {
+    console.log(`Error Uploading Images\n${err}`);
+    process.exit(1);
+  }
+}());

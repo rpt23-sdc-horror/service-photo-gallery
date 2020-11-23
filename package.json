@@ -11,7 +11,7 @@
   "scripts": {
     "build": "webpack -p",
     "build:watch": "webpack -d --watch",
-    "db:seed": "node database/seed/seed-db.js",
+    "db:seed": "node database/seed/inheritedSeed/seed-db.js",
     "start": "node server/index.js",
     "start:watch": "nodemon server/index.js",
     "test": "jest --coverage",

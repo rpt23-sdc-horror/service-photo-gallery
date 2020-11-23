@@ -1,4 +1,4 @@
-const { createPhoto } = require('../index.js');
+const { createPhoto } = require('../../index.js');
 
 const resetDatabase = async (database) => {
   await database.dropDatabase();

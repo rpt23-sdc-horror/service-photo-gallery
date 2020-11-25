@@ -51,7 +51,7 @@ const throttle = 10000;
 
 (async function generateCSVdata() {
   try {
-    await createFolder(__dirname, 'data');
+    await createFolder(path.join(__dirname, 'data'));
 
     const fileName = 'photoRecords.csv';
     const csvPath = path.join(__dirname, 'data', fileName);

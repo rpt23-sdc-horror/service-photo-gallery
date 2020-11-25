@@ -2,7 +2,14 @@ const fs = require('fs');
 const path = require('path');
 
 const writeFile = (filePath, data) => new Promise((resolve, reject) => {
-  fs.writeFile(path.join(filePath), JSON.stringify(data, null, 2), (err) => {
+  fs.writeFile(path.join(filePath), data, (err) => {
+    if (err) reject(err);
+    resolve(true);
+  });
+});
+
+const appendFile = (filePath, data) => new Promise((resolve, reject) => {
+  fs.appendFile(path.join(filePath), data, (err) => {
     if (err) reject(err);
     resolve(true);
   });
@@ -14,6 +21,7 @@ const createFolder = async (currentDir, dirName) => {
 };
 
 module.exports = {
-  createFolder,
   writeFile,
+  appendFile,
+  createFolder,
 };

@@ -34,14 +34,14 @@ let startProductId = 1;
 let endProductId = 100000;
 const recordsPerFile = 100000;
 const maxStyles = 3;
-const filesAmountMax = 3;
+const filesAmountMax = 1;
 
 (async function generateJSONdata() {
   try {
     await createFolder(__dirname, 'data');
 
     for (let filesAmount = 1; filesAmount <= filesAmountMax; filesAmount += 1) {
-      const fileName = `photos${filesAmount}.json`;
+      const fileName = `photoRecords${filesAmount}.json`;
       const filePath = path.join(__dirname, 'data', fileName);
 
       const jsonData = [];
@@ -55,7 +55,7 @@ const filesAmountMax = 3;
       startProductId += recordsPerFile;
       endProductId += recordsPerFile;
 
-      await writeFile(filePath, jsonData);
+      await writeFile(filePath, JSON.stringify(jsonData, null, 2));
       console.log(`Created file ${fileName} which contains ${recordsPerFile} records`);
     }
     console.log(`Files contain product_ids from 1 - ${recordsPerFile * filesAmountMax}`);

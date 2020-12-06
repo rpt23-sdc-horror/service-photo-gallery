@@ -29,7 +29,10 @@ const generatePhotoURL = (params) => {
   return {
     product_id: params.product_id,
     style_id: params.style_id,
-    main_photo: params.main_photo,
+    main_photo: {
+      thumbnail_url: params.main_photo.thumbnail_url,
+      regular_url: params.main_photo.regular_url,
+    },
     other_photos: params.other_photos,
   };
 };

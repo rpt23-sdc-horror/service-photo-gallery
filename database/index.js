@@ -1,9 +1,20 @@
-require('dotenv').config();
 const couchbase = require('couchbase');
+require('dotenv').config();
 
-const cluster = new couchbase.Cluster(process.env.CB_URI, {
-  username: process.env.CB_USERNAME,
-  password: process.env.CB_PASSWORD,
-});
+try {
+  const cluster = new couchbase.Cluster(process.env.CB_URI, {
+    username: process.env.CB_USERNAME,
+    password: process.env.CB_PASSWORD,
+  });
 
-const bucket = cluster.bucket(process.env.CB_BUCKET);
+  cluster.bucket('photo_urls');
+
+  console.log('Connected to Couchbase');
+
+  module.exports = {
+    cluster,
+  };
+} catch (err) {
+  console.log('Error connecting to Couchbase:\n', err);
+  process.exit(1);
+}

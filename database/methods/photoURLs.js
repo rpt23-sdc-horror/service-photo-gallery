@@ -16,6 +16,21 @@ const getPhotosByStyleId = async (product_id, style_id) => {
   }
 };
 
+const deletePhoto = async (product_id) => {
+  const query = `
+  DELETE FROM photo_urls
+  WHERE product_id=${product_id}
+  `;
+
+  try {
+    await cluster.query(query);
+    console.log('Delete Query Succeeded');
+  } catch (err) {
+    throw new Error('Query failed: \n', err);
+  }
+};
+
 module.exports = {
   getPhotosByStyleId,
+  deletePhoto,
 };

@@ -2,7 +2,7 @@
 const app = require('./app');
 
 // open connection to Photos DB
-require('../database/connect.js');
+require('../database/inheritedDatabase/connect.js');
 
 const port = 3000;
 

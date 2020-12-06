@@ -3,7 +3,7 @@ const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const photoDB = require('../database/index.js');
+const photoDB = require('../database/inheritedDatabase/index.js');
 
 const app = express();
 

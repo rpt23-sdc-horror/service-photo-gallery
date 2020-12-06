@@ -1,5 +1,6 @@
 const { cluster } = require('../index');
 const { generatePhotoURL } = require('../documents/photoURL');
+const { validateUpdateValue } = require('../../utils/validation');
 
 const getPhotosByStyleId = async (product_id, style_id) => {
   const query = `
@@ -47,8 +48,27 @@ const createPhoto = async (key, product) => {
   }
 };
 
+const updatePhoto = async (targetDocument, updateValues) => {
+  const targetKey = validateUpdateValue(updateValues);
+  const targetValue = JSON.stringify(updateValues[targetKey]);
+
+  const query = `
+  UPDATE photo_urls
+  SET ${targetKey} = ${targetValue}
+  WHERE product_id=${targetDocument.product_id} AND style_id='${targetDocument.style_id}'
+  `;
+
+  try {
+    await cluster.query(query);
+    console.log('Update Query Succeeded');
+  } catch (err) {
+    throw new Error('Query failed: \n', err);
+  }
+};
+
 module.exports = {
   getPhotosByStyleId,
   deletePhoto,
   createPhoto,
+  updatePhoto,
 };

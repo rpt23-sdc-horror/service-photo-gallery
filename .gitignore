@@ -106,4 +106,4 @@ dist
 #webpack bundle
 bundle-photo-module.js
 
-database/seed/data
+database/seed/data/*

@@ -22,6 +22,7 @@
     "classnames": "^2.2.6",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
+    "couchbase": "^3.1.0",
     "dotenv": "^8.2.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",

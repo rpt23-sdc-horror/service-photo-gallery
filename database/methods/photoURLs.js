@@ -1,4 +1,5 @@
 const { cluster } = require('../index');
+const { generatePhotoURL } = require('../documents/photoURL');
 
 const getPhotosByStyleId = async (product_id, style_id) => {
   const query = `
@@ -30,7 +31,24 @@ const deletePhoto = async (product_id) => {
   }
 };
 
+const createPhoto = async (key, product) => {
+  const newProduct = generatePhotoURL(product);
+
+  const query = `
+  INSERT INTO photo_urls (KEY, VALUE)
+  VALUES ("${key}", ${JSON.stringify(newProduct)})
+  `;
+
+  try {
+    await cluster.query(query);
+    console.log('Create Query Succeeded');
+  } catch (err) {
+    throw new Error('Query failed: \n', err);
+  }
+};
+
 module.exports = {
   getPhotosByStyleId,
   deletePhoto,
+  createPhoto,
 };

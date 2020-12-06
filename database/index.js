@@ -7,7 +7,7 @@ try {
     password: process.env.CB_PASSWORD,
   });
 
-  cluster.bucket('photo_urls');
+  cluster.bucket(process.env.CB_BUCKET);
 
   console.log('Connected to Couchbase');
 

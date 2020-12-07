@@ -32,8 +32,18 @@ Path Parameters:
 
 Query Parameters:
 - style_id *String (formatted as 001, 002 ... etc)*
-- main_photo *Object*
-- other_photos *Array*
+- updateValue *Object*
+*updateValue should contain only 1 key and 1 value to update. Example...*
+```
+  const example = {
+    updateValue: {
+      main_photo: {
+        thumbnail_url: 'url',
+        regular_url: 'url'
+      }
+    }
+  }
+```
 
 ## Delete /photos/{productid}
 Delete all records at the provided Product ID

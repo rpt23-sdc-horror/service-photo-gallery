@@ -31,7 +31,7 @@ const generateRecord = (productId, styleId, comma) => {
 `);
 };
 
-const maxProducts = 1000000;
+const maxProducts = 335000;
 const maxStyles = 3;
 const throttle = 10000;
 

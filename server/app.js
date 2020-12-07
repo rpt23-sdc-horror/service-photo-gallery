@@ -3,7 +3,7 @@ const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
 
-const photoDB = require('../database/index.js');
+const photoDB = require('../database/methods/photoURLs');
 
 const app = express();
 
@@ -11,23 +11,6 @@ app.use(express.json());
 app.use(cors({ origin: '*' }));
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '../public')));
-
-app.get('/photos/:productid', async (req, res) => {
-  try {
-    const productId = Number(req.params.productid);
-    const photos = await photoDB.getPhotosByProductId(productId);
-
-    if (photos.length === 0) {
-      res.status(404).send('Photo Information Not Found');
-      return;
-    }
-
-    res.json(photos);
-  } catch (err) {
-    console.log(err);
-    res.status(500).send('Internal Server Error.');
-  }
-});
 
 app.get('/photos/:productid/:styleid', async (req, res) => {
   try {
@@ -75,12 +58,7 @@ app.put('/photos/:productid', async (req, res) => {
       style_id: req.body.style_id,
     };
 
-    const updateValues = {
-      ...req.body.main_photo && { main_photo: req.body.main_photo },
-      ...req.body.other_photos && { other_photos: req.body.other_photos },
-    };
-
-    await photoDB.updatePhoto(targetDocument, updateValues);
+    await photoDB.updatePhoto(targetDocument, req.body.updateValue);
 
     res.status(204).send('Resource Updated Successfully');
   } catch (err) {

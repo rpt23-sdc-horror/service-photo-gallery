@@ -15,6 +15,7 @@ const getPhotosByStyleId = async (product_id, style_id) => {
 
     return result.rows;
   } catch (err) {
+    console.error(err);
     throw new Error('Select Query failed: \n', err);
   }
 };

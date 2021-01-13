@@ -1,4 +1,5 @@
-// express + routes
+require('newrelic');
+
 const app = require('./app');
 
 // open connection to Photos DB

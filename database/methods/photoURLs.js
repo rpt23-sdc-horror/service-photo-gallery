@@ -6,17 +6,16 @@ require('dotenv').config();
 const bucketName = process.env.CB_BUCKET;
 
 const getPhotosByStyleId = async (product_id, style_id) => {
-  const query = `
+  try {
+    const result = await cluster.query(`
     SELECT * FROM ${bucketName}
     WHERE product_id=${product_id}
     AND style_id='${style_id}'
-  `;
+  `);
 
-  try {
-    const result = await cluster.query(query);
-    const photoInfo = result.rows[0][bucketName];
-    return [photoInfo.main_photo.regular_url, ...photoInfo.other_photos];
+    return result.rows;
   } catch (err) {
+    console.error(err);
     throw new Error('Select Query failed: \n', err);
   }
 };

@@ -14,16 +14,16 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.get('/photos/:productid/:styleid', async (req, res) => {
   try {
-    const productId = Number(req.params.productid);
-    const styleId = req.params.styleid;
-    const photos = await photoDB.getPhotosByStyleId(productId, styleId);
+    const photos = await photoDB.getPhotosByStyleId(
+      Number(req.params.productid),
+      req.params.styleid,
+    );
 
-    if (photos === null) {
+    if (photos.length === 0) {
       res.status(404).send('Photo Information Not Found');
-      return;
+    } else {
+      res.json([photos[0].photo_urls.main_photo.regular_url, ...photos[0].photo_urls.other_photos]);
     }
-
-    res.json(photos);
   } catch (err) {
     console.log(err);
     res.status(500).send('Internal Server Error.');

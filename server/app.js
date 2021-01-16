@@ -2,8 +2,19 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
+const redis = require('redis');
 
 const photoDB = require('../database/methods/photoURLs');
+
+const client = redis.createClient({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  password: process.env.REDIS_PW,
+});
+
+client.on('error', err => {
+  console.log('Error ' + err);
+});
 
 const app = express();
 
@@ -22,6 +33,8 @@ app.get('/photos/:productid/:styleid', async (req, res) => {
     if (photos.length === 0) {
       res.status(404).send('Photo Information Not Found');
     } else {
+      client.setex(`${Number(req.params.productid)}-${req.params.styleid}`, 600, JSON.stringify(photos[0]));
+
       res.json([photos[0].photo_urls.main_photo.regular_url, ...photos[0].photo_urls.other_photos]);
     }
   } catch (err) {
